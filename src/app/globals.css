@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette — Alhijaz Real Estate */
+  --gold: #b7a35a;
+  --gold-deep: #b7a35b;
+  --gold-soft: #ddd3b0;
+  --gold-mid: #c1b071;
+  --white: #ffffff;
+  --black: #000000;
+
+  --background: var(--white);
+  --foreground: var(--black);
+  --muted: #7a7264;
+  --muted-strong: #4a453c;
+  --surface: #f7f5ef;
+  --surface-elevated: #ffffff;
+  --border: color-mix(in srgb, var(--gold-soft) 42%, transparent);
+
+  /* Soft, expensive elevation */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 6px 24px -12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 14px 40px -18px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 22px 56px -24px rgba(0, 0, 0, 0.14);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gold) 22%, transparent);
+
+  --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 220ms;
+  --duration: 320ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-mid: var(--gold-mid);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --font-sans: var(--font-cairo);
+  --shadow-luxury-sm: var(--shadow-sm);
+  --shadow-luxury: var(--shadow-md);
+  --shadow-luxury-lg: var(--shadow-lg);
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 32%, transparent);
+  color: var(--black);
+}
+
+/* ——— Layout rhythm ——— */
+.page-shell {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+}
+
+.section-y {
+  @apply py-20 sm:py-24 lg:py-28;
+}
+
+.section-y-tight {
+  @apply py-16 sm:py-20 lg:py-24;
+}
+
+/* ——— Typography ——— */
+.eyebrow {
+  @apply text-[0.8125rem] font-medium tracking-[0.14em] text-gold;
+}
+
+.heading-display {
+  @apply text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-[3.5rem];
+  line-height: 1.18;
+}
+
+.heading-page {
+  @apply text-[2rem] font-bold tracking-tight text-black sm:text-4xl lg:text-[2.75rem];
+  line-height: 1.22;
+}
+
+.heading-section {
+  @apply text-2xl font-bold tracking-tight text-black sm:text-[1.85rem] lg:text-3xl;
+  line-height: 1.28;
+}
+
+.heading-card {
+  @apply text-lg font-semibold tracking-tight text-black sm:text-xl;
+  line-height: 1.4;
+}
+
+.body-lead {
+  @apply text-base font-normal text-muted sm:text-lg;
+  line-height: 1.9;
+}
+
+.body-copy {
+  @apply text-[0.9375rem] font-normal text-muted sm:text-base;
+  line-height: 1.9;
+}
+
+/* ——— Surfaces & elevation ——— */
+.surface-card {
+  @apply rounded-2xl border border-border bg-white;
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--duration) var(--ease-out-premium),
+    transform var(--duration) var(--ease-out-premium);
+}
+
+.surface-card-hover:hover {
+  box-shadow: var(--shadow-md);
+  transform: translate3d(0, -4px, 0);
+}
+
+/* ——— Buttons ——— */
+.btn-gold,
+.btn-dark,
+.btn-outline-light {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold;
+  transition:
+    background-color var(--duration) var(--ease-out-premium),
+    color var(--duration) var(--ease-out-premium),
+    border-color var(--duration) var(--ease-out-premium),
+    transform var(--duration-fast) var(--ease-out-premium),
+    box-shadow var(--duration) var(--ease-out-premium);
+  will-change: transform;
+}
+
+.btn-gold:active,
+.btn-dark:active,
+.btn-outline-light:active {
+  transform: scale(0.985);
+}
+
+.btn-gold:disabled,
+.btn-dark:disabled,
+.btn-outline-light:disabled {
+  @apply cursor-not-allowed opacity-55;
+}
+
+.btn-gold {
+  @apply bg-gold text-black;
+}
+
+.btn-gold:hover {
+  background-color: var(--gold-soft);
+}
+
+.btn-dark {
+  @apply bg-black text-white;
+}
+
+.btn-dark:hover {
+  background-color: var(--gold);
+  color: var(--black);
+}
+
+.btn-outline-light {
+  @apply border border-white/35 bg-white/5 text-white backdrop-blur-sm;
+}
+
+.btn-outline-light:hover {
+  border-color: var(--gold-soft);
+  background-color: rgb(255 255 255 / 0.12);
+}
+
+/* ——— Motion ——— */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes soft-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.95s var(--ease-out-premium) both;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 1.05s var(--ease-out-premium) 0.16s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 1.05s var(--ease-out-premium) 0.32s both;
+}
+
+.hero-glow {
+  animation: soft-glow 7s ease-in-out infinite;
+  will-change: opacity;
+}
