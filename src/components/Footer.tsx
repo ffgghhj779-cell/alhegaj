@@ -17,6 +17,38 @@ export default function Footer() {
           <p className="mt-6 max-w-md text-[0.9375rem] leading-[1.9] text-white/65">
             {SITE.description}
           </p>
+          <ul className="mt-6 flex flex-wrap gap-4 text-sm">
+            <li>
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/55 transition-colors duration-300 hover:text-gold-soft"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href={SITE.social.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/55 transition-colors duration-300 hover:text-gold-soft"
+              >
+                TikTok
+              </a>
+            </li>
+            <li>
+              <a
+                href={SITE.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/55 transition-colors duration-300 hover:text-gold-soft"
+              >
+                X
+              </a>
+            </li>
+          </ul>
         </div>
 
         <div className="lg:col-span-3">
@@ -34,6 +66,14 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/privacy"
+                className="text-sm text-white/65 transition-colors duration-300 hover:text-gold-soft"
+              >
+                سياسة الخصوصية
+              </Link>
+            </li>
           </ul>
         </div>
 

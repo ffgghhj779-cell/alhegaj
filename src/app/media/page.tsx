@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
-import DynamicTikTokFeed from "@/components/DynamicTikTokFeed";
+import MediaHighlights from "@/components/MediaHighlights";
 import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
 
 export const metadata: Metadata = {
@@ -53,23 +53,42 @@ const GALLERY = [
   },
 ] as const;
 
-/** Placeholder TikTok video IDs — replace with Alhijaz official content */
-const TIKTOK_FEED = [
+const HIGHLIGHTS = [
   {
-    videoId: "7234567890123456789",
+    id: "1",
     title: "جولة معمارية — مشروع فاخر",
+    image:
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80",
   },
   {
-    videoId: "7234567890123456790",
-    title: "تفاصيل التصميم الداخلي الراقي",
+    id: "2",
+    title: "تفاصيل التصميم الراقي",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
   },
   {
-    videoId: "7234567890123456791",
-    title: "إطلالة الموقع والطبيعة المحيطة",
+    id: "3",
+    title: "إطلالة الموقع والطبيعة",
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80",
   },
 ] as const;
 
+function resolveHighlights() {
+  const ids = (process.env.NEXT_PUBLIC_TIKTOK_IDS ?? "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
+  return HIGHLIGHTS.map((item, index) => ({
+    ...item,
+    tiktokId: ids[index],
+  }));
+}
+
 export default function MediaPage() {
+  const highlights = resolveHighlights();
+
   return (
     <section className="bg-surface">
       <div className="page-shell section-y">
@@ -110,14 +129,14 @@ export default function MediaPage() {
 
         <FadeIn className="mt-24 lg:mt-28">
           <div className="mb-10 max-w-2xl">
-            <p className="eyebrow">تيك توك</p>
-            <h2 className="heading-section mt-3">مشاهد متحركة من مشاريعنا</h2>
+            <p className="eyebrow">مشاهد متحركة</p>
+            <h2 className="heading-section mt-3">مختارات بصرية من مشاريعنا</h2>
             <p className="body-copy mt-4">
-              موجز فيديوهات خفيفة يُحمَّل ديناميكياً دون إبطاء الصفحة — استبدل
-              المعرّفات بمحتوى حساب الحجاز الرسمي.
+              لقطات سينمائية بأسلوب رأسي. عند ضبط معرّفات تيك توك عبر البيئة تتحول
+              تلقائياً إلى تضمينات تفاعلية.
             </p>
           </div>
-          <DynamicTikTokFeed items={[...TIKTOK_FEED]} />
+          <MediaHighlights items={highlights} />
         </FadeIn>
       </div>
     </section>

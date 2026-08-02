@@ -30,7 +30,7 @@ export function toCardProperty(property: DbProperty): CardProperty {
   return {
     id: property.id,
     title: property.title,
-    location: "المملكة العربية السعودية",
+    location: property.city || "المملكة العربية السعودية",
     price: formatPrice(property.price, property.status),
     area: property.area,
     rooms: property.rooms,
@@ -42,19 +42,19 @@ export function toCardProperty(property: DbProperty): CardProperty {
   };
 }
 
-/** Architectural gallery variants (no people) derived from primary image */
+/** Gallery: primary image first; extras only as architectural atmosphere shots */
 export function galleryImages(primaryUrl: string, title: string) {
   const extras = [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
     "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
-  ];
+  ].filter((url) => url !== primaryUrl);
 
   return [
     { src: primaryUrl, alt: `الصورة الرئيسية — ${title}` },
-    ...extras.map((src, i) => ({
+    ...extras.slice(0, 3).map((src, i) => ({
       src,
-      alt: `منظر معماري ${i + 2} — ${title}`,
+      alt: `منظر معماري إضافي ${i + 2} — ${title}`,
     })),
   ];
 }

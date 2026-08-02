@@ -71,6 +71,11 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
           <div className="mb-10">
             <p className="eyebrow">{statusLabel(property.status)}</p>
             <h1 className="heading-page mt-3">{property.title}</h1>
+            {(property.city || property.address) && (
+              <p className="mt-3 text-sm text-muted sm:text-base">
+                {[property.city, property.address].filter(Boolean).join(" — ")}
+              </p>
+            )}
           </div>
         </FadeIn>
 

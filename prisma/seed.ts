@@ -16,6 +16,8 @@ const SEED = [
     area: 520,
     rooms: 5,
     bathrooms: 6,
+    city: "الرياض",
+    address: "حي الياسمين، الرياض",
     lat: 24.7752,
     lng: 46.6389,
     imageUrl:
@@ -30,6 +32,8 @@ const SEED = [
     area: 310,
     rooms: 4,
     bathrooms: 4,
+    city: "جدة",
+    address: "شمال جدة",
     lat: 21.5433,
     lng: 39.1728,
     imageUrl:
@@ -44,6 +48,8 @@ const SEED = [
     area: 890,
     rooms: 7,
     bathrooms: 8,
+    city: "الدمام",
+    address: "الدمام، المنطقة الشرقية",
     lat: 26.3927,
     lng: 49.9777,
     imageUrl:
@@ -58,6 +64,8 @@ const SEED = [
     area: 640,
     rooms: 6,
     bathrooms: 5,
+    city: "الخبر",
+    address: "الخبر، المنطقة الشرقية",
     lat: 26.2172,
     lng: 50.1971,
     imageUrl:
@@ -72,6 +80,8 @@ const SEED = [
     area: 710,
     rooms: 5,
     bathrooms: 5,
+    city: "ينبع",
+    address: "الواجهة البحرية، ينبع",
     lat: 24.0231,
     lng: 38.19,
     imageUrl:
@@ -86,6 +96,8 @@ const SEED = [
     area: 480,
     rooms: 4,
     bathrooms: 4,
+    city: "مكة المكرمة",
+    address: "مكة المكرمة",
     lat: 21.4225,
     lng: 39.8262,
     imageUrl:

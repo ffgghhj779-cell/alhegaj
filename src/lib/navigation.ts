@@ -25,9 +25,19 @@ export const SITE = {
   whatsappAdmin: "966500000000",
   lat: 24.7136,
   lng: 46.6753,
+  social: {
+    instagram: "https://instagram.com/",
+    tiktok: "https://www.tiktok.com/",
+    twitter: "https://x.com/",
+  },
 } as const;
 
 export function getAdminWhatsApp(): string {
   const fromEnv = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP?.replace(/\D/g, "");
   return fromEnv && fromEnv.length >= 10 ? fromEnv : SITE.whatsappAdmin;
+}
+
+export function isNavActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
 }

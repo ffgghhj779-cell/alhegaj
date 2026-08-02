@@ -94,6 +94,20 @@ export default function AddPropertyForm() {
         </div>
 
         <div>
+          <label htmlFor="city" className={labelClass}>
+            المدينة
+          </label>
+          <input
+            id="city"
+            name="city"
+            required
+            className={inputClass}
+            placeholder="الرياض"
+            defaultValue="الرياض"
+          />
+        </div>
+
+        <div>
           <label htmlFor="area" className={labelClass}>
             المساحة (م²)
           </label>

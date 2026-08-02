@@ -24,6 +24,8 @@ model Property {
   area        Float
   rooms       Int
   bathrooms   Int
+  city        String         @default("الرياض")
+  address     String         @default("")
   lat         Float
   lng         Float
   imageUrl    String

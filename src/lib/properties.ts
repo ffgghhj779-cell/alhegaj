@@ -30,7 +30,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "واجهة فيلا معمارية فاخرة بإضاءة مسائية",
-    href: "/properties/1",
+    href: "/properties",
     badges: [
       { label: "للبيع", variant: "gold" },
       { label: "مميز", variant: "dark" },
@@ -47,7 +47,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "منزل حديث بواجهات زجاجية وحديقة أمامية",
-    href: "/properties/2",
+    href: "/properties",
     badges: [{ label: "للبيع", variant: "gold" }],
   },
   {
@@ -61,7 +61,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "عمارة سكنية فاخرة بتصميم معاصر",
-    href: "/properties/3",
+    href: "/properties",
     badges: [
       { label: "للبيع", variant: "gold" },
       { label: "مميز", variant: "dark" },
@@ -78,7 +78,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cd00?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "واجهة فيلا بيضاء بأقواس معمارية أنيقة",
-    href: "/properties/4",
+    href: "/properties",
     badges: [{ label: "للبيع", variant: "gold" }],
   },
   {
@@ -92,7 +92,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "منزل فاخر بإطلالة مائية وتصميم معاصر",
-    href: "/properties/5",
+    href: "/properties",
     badges: [
       { label: "للإيجار", variant: "gold" },
       { label: "مميز", variant: "dark" },
@@ -109,7 +109,7 @@ export const SAMPLE_PROPERTIES: Property[] = [
     image:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "فناء داخلي لمجمع سكني بتصميم معماري هادئ",
-    href: "/properties/6",
+    href: "/properties",
     badges: [{ label: "للبيع", variant: "gold" }],
   },
 ];

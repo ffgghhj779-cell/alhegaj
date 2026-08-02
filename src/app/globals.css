@@ -150,6 +150,7 @@ body {
 .btn-dark,
 .btn-outline-light {
   @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2;
   transition:
     background-color var(--duration) var(--ease-out-premium),
     color var(--duration) var(--ease-out-premium),

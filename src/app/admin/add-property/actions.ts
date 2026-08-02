@@ -22,6 +22,8 @@ export async function addProperty(
   const title = String(formData.get("title") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
   const imageUrl = String(formData.get("imageUrl") ?? "").trim();
+  const city = String(formData.get("city") ?? "").trim() || "الرياض";
+  const address = String(formData.get("address") ?? "").trim();
   const statusRaw = String(formData.get("status") ?? "Sale");
   const price = toNumber(formData.get("price"));
   const area = toNumber(formData.get("area"));
@@ -46,6 +48,8 @@ export async function addProperty(
       title,
       description,
       imageUrl,
+      city,
+      address,
       status,
       price,
       area,
@@ -59,5 +63,6 @@ export async function addProperty(
   revalidatePath("/properties");
   revalidatePath(`/properties/${property.id}`);
   revalidatePath("/");
+  revalidatePath("/sitemap.xml");
   redirect(`/properties/${property.id}`);
 }
