@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Map, { Marker, NavigationControl } from "react-map-gl/mapbox";
-import { MapPin } from "lucide-react";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { useMemo } from "react";
+import { MapContainer, Marker, TileLayer, ZoomControl } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export type InteractiveMapProps = {
   lat: number;
@@ -14,51 +14,33 @@ export type InteractiveMapProps = {
   height?: number | string;
 };
 
-function MapPlaceholder({
-  lat,
-  lng,
-  title,
-  className,
-  height,
-}: InteractiveMapProps) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_10px_32px_-18px_rgba(0,0,0,0.45)] ${className ?? ""}`}
-      style={{ height: height ?? 360 }}
-      role="img"
-      aria-label={title ? `خريطة موقع ${title}` : "خريطة الموقع"}
-    >
-      <div
-        className="absolute inset-0 opacity-70"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, rgba(183,163,90,0.12) 0%, transparent 45%), linear-gradient(180deg, #18160f 0%, #0c0b09 100%), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(183,163,90,0.08) 40px), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(183,163,90,0.08) 40px)",
-        }}
-        aria-hidden
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3.5 px-8 text-center">
-        <span className="inline-flex size-12 items-center justify-center rounded-full bg-gold/15 text-gold">
-          <MapPin className="size-5" strokeWidth={1.6} aria-hidden />
-        </span>
-        <p className="text-sm font-semibold tracking-tight text-foreground">
-          الخريطة التفاعلية غير مفعّلة
-        </p>
-        <p className="max-w-sm text-xs leading-7 text-muted">
-          أضف مفتاح Mapbox في{" "}
-          <span className="font-medium text-gold" dir="ltr">
-            NEXT_PUBLIC_MAPBOX_TOKEN
-          </span>{" "}
-          لعرض الموقع بدقة.
-        </p>
-        <p
-          className="rounded-md bg-black px-3.5 py-1.5 text-xs font-medium text-gold-soft"
-          dir="ltr"
-        >
-          {lat.toFixed(5)}, {lng.toFixed(5)}
-        </p>
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function createGoldMarker(title?: string) {
+  const label = title
+    ? `<span class="alhejaz-map-label">${escapeHtml(title)}</span>`
+    : "";
+
+  return L.divIcon({
+    className: "alhejaz-map-marker",
+    html: `
+      <div class="alhejaz-map-pin">
+        ${label}
+        <svg width="28" height="36" viewBox="0 0 28 36" fill="none" aria-hidden="true">
+          <path d="M14 0C6.268 0 0 6.268 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.268 21.732 0 14 0z" fill="#B7A35A"/>
+          <circle cx="14" cy="14" r="5.5" fill="#0C0B09"/>
+        </svg>
       </div>
-    </div>
-  );
+    `,
+    iconSize: [28, 36],
+    iconAnchor: [14, 36],
+  });
 }
 
 export default function InteractiveMap({
@@ -69,58 +51,33 @@ export default function InteractiveMap({
   className,
   height = 360,
 }: InteractiveMapProps) {
-  const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-  const [viewState, setViewState] = useState({
-    latitude: lat,
-    longitude: lng,
-    zoom,
-  });
-
-  const marker = useMemo(
-    () => ({ latitude: lat, longitude: lng }),
-    [lat, lng],
-  );
-
-  if (!token) {
-    return (
-      <MapPlaceholder
-        lat={lat}
-        lng={lng}
-        title={title}
-        className={className}
-        height={height}
-      />
-    );
-  }
+  const position = useMemo(() => [lat, lng] as [number, number], [lat, lng]);
+  const icon = useMemo(() => createGoldMarker(title), [title]);
 
   return (
     <div
-      className={`overflow-hidden rounded-2xl border border-border ${className ?? ""}`}
+      className={`alhejaz-map overflow-hidden rounded-2xl border border-border ${className ?? ""}`}
       style={{ height }}
+      role="region"
+      aria-label={title ? `خريطة موقع ${title}` : "خريطة الموقع"}
     >
-      <Map
-        mapboxAccessToken={token}
-        {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/dark-v11"
+      <MapContainer
+        center={position}
+        zoom={zoom}
+        scrollWheelZoom={false}
+        zoomControl={false}
         style={{ width: "100%", height: "100%" }}
-        attributionControl={false}
-        reuseMaps
+        attributionControl
       >
-        <NavigationControl position="top-left" showCompass={false} />
-        <Marker
-          latitude={marker.latitude}
-          longitude={marker.longitude}
-          anchor="bottom"
-        >
-          <span className="flex flex-col items-center drop-shadow-md">
-            <span className="rounded-md bg-black px-2 py-1 text-[0.65rem] font-semibold text-gold-soft">
-              {title ?? "الموقع"}
-            </span>
-            <MapPin className="mt-1 size-8 fill-gold text-foreground" aria-hidden />
-          </span>
-        </Marker>
-      </Map>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          subdomains="abcd"
+          maxZoom={20}
+        />
+        <ZoomControl position="topleft" />
+        <Marker position={position} icon={icon} title={title ?? "الموقع"} />
+      </MapContainer>
     </div>
   );
 }

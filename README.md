@@ -7,7 +7,7 @@
 ```bash
 npm install
 cp .env.example .env.local
-# عدّل قيم WhatsApp / Mapbox / ADMIN_PASSWORD
+# عدّل قيم WhatsApp / ADMIN_PASSWORD
 npx prisma migrate dev
 npm run db:seed
 npm run dev

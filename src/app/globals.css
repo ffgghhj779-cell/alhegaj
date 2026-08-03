@@ -252,3 +252,59 @@ body {
   animation: soft-glow 7s ease-in-out infinite;
   will-change: opacity;
 }
+
+/* ——— Leaflet map (OSM / Carto Dark — free, no API key) ——— */
+.alhejaz-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #0c0b09;
+  font-family: inherit;
+  z-index: 0;
+}
+
+.alhejaz-map .leaflet-control-zoom a {
+  background: #14120e !important;
+  color: #b7a35a !important;
+  border-color: rgba(183, 163, 90, 0.28) !important;
+}
+
+.alhejaz-map .leaflet-control-zoom a:hover {
+  background: #1c1914 !important;
+  color: #d4c48a !important;
+}
+
+.alhejaz-map .leaflet-control-attribution {
+  background: rgba(12, 11, 9, 0.82) !important;
+  color: rgba(212, 196, 138, 0.55) !important;
+  font-size: 10px !important;
+}
+
+.alhejaz-map .leaflet-control-attribution a {
+  color: #b7a35a !important;
+}
+
+.alhejaz-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.alhejaz-map-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.55));
+}
+
+.alhejaz-map-label {
+  margin-bottom: 4px;
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  background: #0c0b09;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #d4c48a;
+}
