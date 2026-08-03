@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Tajawal } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MainFade from "@/components/MainFade";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { BRAND } from "@/lib/brand";
 import { SITE } from "@/lib/navigation";
@@ -101,7 +102,7 @@ export default function RootLayout({
         </a>
         <Navbar />
         <main id="main-content" className="flex-1">
-          {children}
+          <MainFade>{children}</MainFade>
         </main>
         <Footer />
         <WhatsAppFloat />

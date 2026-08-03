@@ -253,6 +253,165 @@ body {
   will-change: opacity;
 }
 
+/* ——— Premium light atmosphere (GPU: opacity / transform only) ——— */
+@keyframes ambient-drift {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translate3d(2%, -1.5%, 0) scale(1.06);
+  }
+}
+
+@keyframes gold-shimmer {
+  0%,
+  100% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+}
+
+.section-atmosphere {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section-atmosphere::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: -20% -10%;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse 55% 45% at 70% 20%,
+      rgba(183, 163, 90, 0.11),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 15% 80%,
+      rgba(183, 163, 90, 0.07),
+      transparent 55%
+    );
+  animation: ambient-drift 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.section-atmosphere > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-grain {
+  position: relative;
+}
+
+.section-grain::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 767px) {
+  .section-atmosphere::before {
+    animation: none;
+    opacity: 0.55;
+    transform: none;
+    will-change: auto;
+  }
+
+  .btn-gold-shimmer {
+    animation: none;
+    background-image: none;
+  }
+}
+
+.btn-gold-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    var(--gold) 0%,
+    var(--gold) 38%,
+    var(--gold-soft) 50%,
+    var(--gold) 62%,
+    var(--gold) 100%
+  );
+  background-size: 220% 100%;
+  animation: gold-shimmer 4.8s ease-in-out infinite;
+}
+
+.reveal-media {
+  opacity: 0.55;
+  clip-path: inset(6% 6% 6% 6%);
+  transform: scale(1.04);
+  transition:
+    opacity 0.7s var(--ease-out-premium),
+    clip-path 0.7s var(--ease-out-premium),
+    transform 0.7s var(--ease-out-premium);
+  will-change: transform, opacity, clip-path;
+}
+
+.reveal-media.is-revealed {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+}
+
+.card-lift {
+  transition:
+    transform var(--duration) var(--ease-out-premium),
+    box-shadow var(--duration) var(--ease-out-premium),
+    border-color var(--duration) var(--ease-out-premium);
+}
+
+.card-lift .card-img {
+  transition: transform 0.5s var(--ease-out-premium);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-lift:hover {
+    transform: translate3d(0, -4px, 0);
+    border-color: color-mix(in srgb, var(--gold) 40%, transparent);
+    box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.55);
+  }
+
+  .card-lift:hover .card-img {
+    transform: scale(1.04);
+  }
+
+  .card-lift:hover .card-overlay {
+    opacity: 1;
+    background-color: rgb(0 0 0 / 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-atmosphere::before,
+  .btn-gold-shimmer,
+  .hero-glow {
+    animation: none !important;
+  }
+
+  .reveal-media {
+    opacity: 1;
+    clip-path: none;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ——— Leaflet map (OSM / Carto Dark — free, no API key) ——— */
 .alhejaz-map .leaflet-container {
   width: 100%;

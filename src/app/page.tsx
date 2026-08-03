@@ -1,9 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import GoldRule from "@/components/GoldRule";
 import HeroLattice from "@/components/HeroLattice";
 import PropertyCard from "@/components/PropertyCard";
+import RevealMedia from "@/components/RevealMedia";
 import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
+import VisionBand from "@/components/VisionBand";
 import { BRAND } from "@/lib/brand";
 import {
   MISSION,
@@ -17,6 +19,7 @@ import { prisma } from "@/lib/prisma";
 import { SAMPLE_PROPERTIES } from "@/lib/properties";
 import { PROJECTS } from "@/lib/projects";
 import { toCardProperty } from "@/lib/property-utils";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -53,20 +56,26 @@ export default async function HomePage() {
           </p>
 
           <div className="animate-fade-up-delay-2 mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-            <Link href="/properties" className="btn-gold min-h-12 w-full sm:w-auto">
+            <Link
+              href="/properties"
+              className="btn-gold btn-gold-shimmer min-h-12 w-full sm:w-auto"
+            >
               استكشف العقارات
             </Link>
-            <Link href="/contact" className="btn-outline-light min-h-12 w-full sm:w-auto">
+            <Link
+              href="/contact"
+              className="btn-outline-light min-h-12 w-full sm:w-auto"
+            >
               تواصل معنا
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-surface">
+      <section className="section-atmosphere section-grain bg-surface">
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
-            <div className="mx-auto mb-6 h-px w-14 bg-gold" aria-hidden />
+            <GoldRule />
             <p className="eyebrow">رسالتنا</p>
             <h2 className="heading-section mt-3">قيمة مستدامة لعملائنا</h2>
             <p className="body-lead mt-5">{MISSION}</p>
@@ -76,9 +85,9 @@ export default async function HomePage() {
             {VALUES.slice(0, 3).map((item) => (
               <StaggerItem key={item.title}>
                 <article className="text-center sm:text-start">
-                  <div
+                  <GoldRule
                     className="mx-auto mb-5 h-px w-10 bg-gold sm:mx-0"
-                    aria-hidden
+                    origin="start"
                   />
                   <h3 className="heading-card">{item.title}</h3>
                   <p className="body-copy mt-3">{item.body}</p>
@@ -89,41 +98,28 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="relative isolate overflow-hidden bg-black">
-        <Image
-          src={BRAND.stationery}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-35"
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/70"
-          aria-hidden
-        />
-        <div className="page-shell relative z-10 section-y-tight">
-          <FadeIn className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-medium tracking-wide text-gold">
-              رؤية المملكة 2030
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              {VISION_2030.title}
-            </h2>
-            <p className="mt-5 text-base leading-[1.9] text-white/70 sm:text-lg">
-              {VISION_2030.body}
-            </p>
-            <Link href="/about" className="btn-gold mt-8">
-              اقرأ المزيد عنا
-            </Link>
-          </FadeIn>
-        </div>
-      </section>
+      <VisionBand imageSrc={BRAND.stationery}>
+        <FadeIn className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-medium tracking-wide text-gold">
+            رؤية المملكة 2030
+          </p>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            {VISION_2030.title}
+          </h2>
+          <p className="mt-5 text-base leading-[1.9] text-white/70 sm:text-lg">
+            {VISION_2030.body}
+          </p>
+          <Link href="/about" className="btn-gold btn-gold-shimmer mt-8">
+            اقرأ المزيد عنا
+          </Link>
+        </FadeIn>
+      </VisionBand>
 
       <section className="bg-background">
         <div className="page-shell section-y">
           <FadeIn className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
             <div>
+              <GoldRule className="mb-4 h-px w-14 bg-gold" origin="start" />
               <p className="eyebrow">مختاراتنا</p>
               <h2 className="heading-section mt-3">عقارات تليق بذوقكم</h2>
             </div>
@@ -145,10 +141,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-surface">
+      <section className="section-atmosphere bg-surface">
         <div className="page-shell section-y">
           <FadeIn className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
             <div>
+              <GoldRule className="mb-4 h-px w-14 bg-gold" origin="start" />
               <p className="eyebrow">من السوق السعودي</p>
               <h2 className="heading-section mt-3">مشاريع حديثة</h2>
             </div>
@@ -165,16 +162,18 @@ export default async function HomePage() {
               <StaggerItem key={project.id}>
                 <Link
                   href={`/projects/${project.id}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-gold/40"
+                  className="card-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)]"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-surface">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
+                    <RevealMedia className="absolute inset-0">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        className="card-img object-cover"
+                      />
+                    </RevealMedia>
                   </div>
                   <div className="flex flex-1 flex-col gap-2 p-5">
                     <p className="text-[0.75rem] text-gold-mid">
@@ -197,6 +196,7 @@ export default async function HomePage() {
       <section className="bg-background">
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
+            <GoldRule />
             <p className="eyebrow">معايير العمل</p>
             <h2 className="heading-section mt-3">نلتزم بما يثق به السوق</h2>
           </FadeIn>
@@ -213,19 +213,23 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-surface">
+      <section className="section-atmosphere section-grain bg-surface">
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
-            <div className="mx-auto mb-6 h-px w-14 bg-gold" aria-hidden />
+            <GoldRule />
             <h2 className="heading-section">ماذا يقول عملاؤنا</h2>
           </FadeIn>
           <StaggerGrid className="mt-14 grid gap-8 md:grid-cols-3 lg:gap-10">
             {TESTIMONIALS.map((item) => (
               <StaggerItem key={item.name}>
                 <blockquote className="h-full border-s-2 border-gold/60 ps-5">
-                  <p className="body-copy text-foreground/85">&ldquo;{item.quote}&rdquo;</p>
+                  <p className="body-copy text-foreground/85">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
                   <footer className="mt-4">
-                    <p className="text-sm font-semibold text-gold-mid">{item.name}</p>
+                    <p className="text-sm font-semibold text-gold-mid">
+                      {item.name}
+                    </p>
                     <p className="mt-1 text-xs text-muted">{item.role}</p>
                   </footer>
                 </blockquote>
@@ -235,7 +239,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black">
+      <section className="section-atmosphere section-grain bg-black">
         <div className="page-shell section-y-tight text-center">
           <FadeIn>
             <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
@@ -245,7 +249,7 @@ export default async function HomePage() {
               استشارة أولية، وخيارات واضحة، ومتابعة حتى إتمام الصفقة.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/projects" className="btn-gold min-h-11">
+              <Link href="/projects" className="btn-gold btn-gold-shimmer min-h-11">
                 مشاريعنا
               </Link>
               <Link href="/contact" className="btn-outline-light min-h-11">

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Bath, BedDouble, Maximize2 } from "lucide-react";
+import RevealMedia from "@/components/RevealMedia";
 import type { Property } from "@/lib/properties";
 
 type PropertyCardProps = {
@@ -53,21 +56,23 @@ export default function PropertyCard({
 
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_8px_28px_-16px_rgba(0,0,0,0.45)] transition-[transform,box-shadow,border-color] duration-300 ease-out will-change-transform hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.55)] ${className}`}
+      className={`card-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_8px_28px_-16px_rgba(0,0,0,0.45)] ${className}`}
     >
       <Link
         href={href}
         className="flex h-full flex-col outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-surface">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            priority={priority}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.04]"
-          />
+          <RevealMedia className="absolute inset-0">
+            <Image
+              src={image}
+              alt={imageAlt}
+              fill
+              priority={priority}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="card-img object-cover object-center"
+            />
+          </RevealMedia>
 
           {badges.length > 0 && (
             <ul className="absolute inset-x-0 top-0 z-10 flex flex-wrap gap-2 p-4">
@@ -87,7 +92,7 @@ export default function PropertyCard({
             </ul>
           )}
 
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/0 opacity-0 transition-[opacity,background-color] duration-300 group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100">
+          <div className="card-overlay pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/0 opacity-0 transition-[opacity,background-color] duration-300 group-focus-within:bg-black/40 group-focus-within:opacity-100">
             <span className="rounded-md bg-gold px-5 py-2.5 text-sm font-bold text-black shadow-sm">
               تفاصيل
             </span>

@@ -204,15 +204,36 @@ export default function HeroLattice() {
 
       segs.sort((p, q) => p.z - q.z);
 
+      const pulse = reduceMotion
+        ? 1
+        : 0.72 + 0.28 * (0.5 + 0.5 * Math.sin(angle * 2.4));
+
       for (const s of segs) {
         const depth = (s.z + 1) / 2;
         ctx.beginPath();
         ctx.moveTo(s.x1, s.y1);
         ctx.lineTo(s.x2, s.y2);
-        ctx.strokeStyle = `rgba(${gold}, ${0.12 + depth * 0.38})`;
+        ctx.strokeStyle = `rgba(${gold}, ${(0.12 + depth * 0.38) * pulse})`;
         ctx.lineWidth = 0.6 + depth * 1.1;
         ctx.lineCap = "round";
         ctx.stroke();
+      }
+
+      /* Sparse vertex sparks — cheap, no particle system */
+      const sparkStep = isMobile() ? 5 : 3;
+      for (let i = 0; i < dome.verts.length; i += sparkStep) {
+        let v = rotateY(dome.verts[i], angle);
+        v = rotateX(v, tiltX);
+        const z = v[2] + 2.35;
+        if (z <= 0.2) continue;
+        const x = cx + (v[0] / z) * scale;
+        const y = cy - (v[1] / z) * scale;
+        const depth = (v[2] + 1) / 2;
+        const r = 0.9 + depth * 1.4;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${gold}, ${(0.18 + depth * 0.35) * pulse})`;
+        ctx.fill();
       }
 
       const bloom = ctx.createRadialGradient(
@@ -223,7 +244,7 @@ export default function HeroLattice() {
         h * 0.4,
         w * 0.35,
       );
-      bloom.addColorStop(0, `rgba(${gold}, 0.09)`);
+      bloom.addColorStop(0, `rgba(${gold}, ${0.055 + pulse * 0.055})`);
       bloom.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = bloom;
       ctx.fillRect(0, 0, w, h);
@@ -257,8 +278,10 @@ export default function HeroLattice() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#030303]" aria-hidden>
       <canvas ref={canvasRef} className="absolute inset-0 size-full" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/40" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,transparent_0%,transparent_45%,rgba(0,0,0,0.35)_80%,rgba(0,0,0,0.7)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/50" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(183,163,90,0.07)_0%,transparent_42%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,transparent_0%,transparent_42%,rgba(0,0,0,0.4)_78%,rgba(0,0,0,0.82)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 }
