@@ -3,14 +3,35 @@ import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import MediaHighlights from "@/components/MediaHighlights";
 import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "الوسائط",
   description:
-    "معرض الصور والفيديوهات لمشاريع الحجاز العقارية — عمارة وطبيعة بروح فاخرة.",
+    "معرض الصور والفيديوهات لمشاريع الحجاز للخدمات العقارية — عمارة وهوية بصرية بروح فاخرة.",
 };
 
 const GALLERY = [
+  {
+    src: BRAND.facade,
+    alt: BRAND.alt.facade,
+    tall: true,
+  },
+  {
+    src: BRAND.stationery,
+    alt: BRAND.alt.stationery,
+    tall: false,
+  },
+  {
+    src: BRAND.businessCards,
+    alt: BRAND.alt.businessCards,
+    tall: false,
+  },
+  {
+    src: BRAND.hardhat,
+    alt: BRAND.alt.hardhat,
+    tall: true,
+  },
   {
     src: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
     alt: "واجهة فيلا فاخرة بإضاءة مسائية دافئة",
@@ -30,26 +51,6 @@ const GALLERY = [
     src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
     alt: "فناء داخلي هادئ بتصميم معماري أصيل",
     tall: true,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=80",
-    alt: "فيلا بإضاءة ليلية فاخرة",
-    tall: false,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cd00?auto=format&fit=crop&w=1200&q=80",
-    alt: "واجهة بيضاء بأقواس معمارية أنيقة",
-    tall: true,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80",
-    alt: "إقامة فاخرة بإطلالة طبيعية مفتوحة",
-    tall: false,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=1000&q=80",
-    alt: "ممرات داخلية بتشطيبات حجرية راقية",
-    tall: false,
   },
 ] as const;
 

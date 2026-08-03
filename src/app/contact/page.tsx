@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import DynamicMap from "@/components/DynamicMap";
 import FadeIn from "@/components/FadeIn";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
+import { BRAND } from "@/lib/brand";
 import { getAdminWhatsApp, SITE } from "@/lib/navigation";
 
 export const metadata: Metadata = {
   title: "تواصل معنا",
   description:
-    "تواصل مع فريق الحجاز العقارية — نموذج طلب يُوجَّه تلقائياً إلى واتساب الإدارة.",
+    "تواصل مع فريق الحجاز للخدمات العقارية — نموذج طلب يُوجَّه تلقائياً إلى واتساب الإدارة.",
 };
 
 export default function ContactPage() {
@@ -26,6 +28,23 @@ export default function ContactPage() {
             اتركوا بياناتكم واهتمامكم — يُعاد توجيه الطلب فوراً إلى واتساب الإدارة
             برسالة عربية منسّقة.
           </p>
+        </FadeIn>
+
+        <FadeIn className="mt-10 overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_10px_32px_-18px_rgba(0,0,0,0.08)]">
+          <div className="relative aspect-[21/9] min-h-[140px] sm:aspect-[3/1]">
+            <Image
+              src={BRAND.businessCards}
+              alt={BRAND.alt.businessCards}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+              aria-hidden
+            />
+          </div>
         </FadeIn>
 
         <div className="mt-14 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-12">

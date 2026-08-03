@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isNavActive, NAV_ITEMS, SITE } from "@/lib/navigation";
+import BrandLockup from "@/components/BrandLockup";
+import { isNavActive, NAV_ITEMS } from "@/lib/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -46,19 +47,15 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className="page-shell flex h-[4.25rem] items-center justify-between gap-6 sm:h-[4.75rem]"
+        className="page-shell flex h-[4.25rem] items-center justify-between gap-4 sm:h-[4.75rem] sm:gap-6"
         aria-label="التنقل الرئيسي"
       >
         <Link
           href="/"
-          className="group flex min-w-0 flex-col items-start leading-tight"
+          className="group min-w-0 shrink-0 transition-opacity duration-300 hover:opacity-90"
+          aria-label="الحجاز للخدمات العقارية — الصفحة الرئيسية"
         >
-          <span className="text-lg font-bold tracking-tight text-black transition-colors duration-300 group-hover:text-gold sm:text-xl">
-            {SITE.nameAr}
-          </span>
-          <span className="mt-0.5 hidden text-[0.65rem] font-medium tracking-[0.2em] text-gold-mid uppercase sm:block">
-            {SITE.nameEn}
-          </span>
+          <BrandLockup tone="light" priority />
         </Link>
 
         <ul className="hidden items-center gap-0.5 lg:flex">
@@ -68,7 +65,7 @@ export default function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`group relative px-3.5 py-2.5 text-[0.875rem] font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 ${
+                  className={`group relative px-3 py-2.5 text-[0.8125rem] font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 xl:px-3.5 xl:text-[0.875rem] ${
                     active
                       ? "text-gold"
                       : "text-muted-strong/80 hover:text-gold"
@@ -76,7 +73,7 @@ export default function Navbar() {
                 >
                   {item.label}
                   <span
-                    className={`absolute inset-x-3.5 -bottom-0.5 h-px origin-center bg-gold transition-transform duration-300 ease-out ${
+                    className={`absolute inset-x-3 -bottom-0.5 h-px origin-center bg-gold transition-transform duration-300 ease-out xl:inset-x-3.5 ${
                       active
                         ? "scale-x-100"
                         : "scale-x-0 group-hover:scale-x-100"

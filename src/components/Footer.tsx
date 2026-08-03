@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 import { NAV_ITEMS, SITE } from "@/lib/navigation";
 
 export default function Footer() {
@@ -8,12 +9,13 @@ export default function Footer() {
     <footer className="mt-auto border-t border-white/10 bg-black text-white">
       <div className="page-shell grid gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:gap-16 lg:py-24">
         <div className="lg:col-span-5">
-          <p className="text-2xl font-bold tracking-tight text-gold-soft sm:text-3xl">
-            {SITE.nameAr}
-          </p>
-          <p className="mt-2 text-[0.7rem] font-medium tracking-[0.22em] text-gold-mid uppercase">
-            {SITE.nameEn}
-          </p>
+          <Link
+            href="/"
+            className="inline-block transition-opacity duration-300 hover:opacity-90"
+            aria-label={SITE.nameAr}
+          >
+            <BrandLogo variant="stacked" />
+          </Link>
           <p className="mt-6 max-w-md text-[0.9375rem] leading-[1.9] text-white/65">
             {SITE.description}
           </p>

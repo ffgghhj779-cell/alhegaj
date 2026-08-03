@@ -44,6 +44,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# prisma generated client
 /src/generated/prisma
 
 # local agent tooling
@@ -51,3 +52,7 @@ next-env.d.ts
 .claude/
 .windsurf/
 skills-lock.json
+
+# raw brand packages (optimized copies live in /public/brand)
+/alhijaz42/
+/alhijaz/

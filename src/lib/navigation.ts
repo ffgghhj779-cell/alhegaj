@@ -14,11 +14,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
 ] as const;
 
 export const SITE = {
-  nameAr: "الحجاز العقارية",
-  nameEn: "Alhijaz Real Estate",
+  nameAr: "الحجاز للخدمات العقارية",
+  nameShortAr: "الحجاز",
+  nameShortService: "للخدمات العقارية",
+  nameEn: "AL-HIJAZ REAL ESTATE SERVICES",
   tagline: "فخامة المكان… ورهبة التفاصيل",
+  sloganEn: "Where place meets presence",
   description:
-    "منصة عقارية فاخرة تقدّم تجربة استثنائية في اختيار وتطوير العقارات في المملكة العربية السعودية.",
+    "مكتب الحجاز للخدمات العقارية — حلول عقارية متكاملة ترتكز على الجودة والابتكار والموثوقية في المملكة العربية السعودية.",
   phone: "+966 11 000 0000",
   email: "info@alhejaz.sa",
   address: "الرياض، المملكة العربية السعودية",

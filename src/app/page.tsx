@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import HeroLattice from "@/components/HeroLattice";
 import PropertyCard from "@/components/PropertyCard";
 import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
+import { BRAND } from "@/lib/brand";
 import {
   MISSION,
   PARTNERS,
@@ -16,10 +18,6 @@ import { SAMPLE_PROPERTIES } from "@/lib/properties";
 import { toCardProperty } from "@/lib/property-utils";
 
 export const dynamic = "force-dynamic";
-
-/** Architectural background loop — muted, no people */
-const HERO_VIDEO =
-  "https://videos.pexels.com/video-files/3773486/3773486-hd_1920_1080_30fps.mp4";
 
 export default async function HomePage() {
   const dbFeatured = await prisma.property.findMany({
@@ -35,53 +33,22 @@ export default async function HomePage() {
   return (
     <>
       <section className="relative isolate min-h-[calc(100svh-4.25rem)] overflow-hidden sm:min-h-[calc(100svh-4.75rem)]">
-        <video
-          className="absolute inset-0 size-full object-cover object-center"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80"
-          aria-hidden
-        >
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
-        <Image
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 -z-10 object-cover object-center"
-          aria-hidden
-        />
-
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"
-          aria-hidden
-        />
-        <div
-          className="hero-glow pointer-events-none absolute -start-24 top-1/4 h-72 w-72 rounded-full bg-gold/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="hero-glow pointer-events-none absolute -end-16 bottom-1/4 h-64 w-64 rounded-full bg-gold-soft/15 blur-3xl"
-          aria-hidden
-        />
+        <HeroLattice />
 
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-4.25rem)] flex-col justify-end pb-20 pt-28 sm:min-h-[calc(100svh-4.75rem)] sm:pb-24 lg:pb-28">
-          <p className="animate-fade-up text-[0.8125rem] font-medium tracking-[0.28em] text-gold-soft uppercase">
+          <p className="animate-fade-up font-latin text-[0.7rem] font-medium tracking-[0.32em] text-gold-soft uppercase sm:text-[0.78rem]">
             {SITE.nameEn}
           </p>
 
-          <h1 className="animate-fade-up-delay mt-5 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.12]">
-            أهلاً بكم في{" "}
-            <span className="text-gold-soft">{SITE.nameAr}</span>
+          <h1 className="animate-fade-up-delay mt-5 max-w-3xl font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.12]">
+            {SITE.nameShortAr}
+            <span className="mt-2 block text-2xl font-bold text-gold-soft sm:text-3xl lg:text-4xl">
+              {SITE.nameShortService}
+            </span>
           </h1>
 
-          <p className="animate-fade-up-delay-2 mt-6 max-w-xl text-base leading-[1.9] text-white/80 sm:text-lg">
-            حلول عقارية متكاملة ترتكز على الجودة والابتكار والموثوقية —
-            وتواكب مستهدفات رؤية المملكة 2030.
+          <p className="animate-fade-up-delay-2 mt-6 max-w-xl font-display text-base leading-[1.9] text-white/80 sm:text-lg">
+            {SITE.tagline}
           </p>
 
           <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3.5 sm:flex-row sm:items-center">
@@ -120,8 +87,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black">
-        <div className="page-shell section-y-tight">
+      <section className="relative isolate overflow-hidden bg-black">
+        <Image
+          src={BRAND.stationery}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-35"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/70"
+          aria-hidden
+        />
+        <div className="page-shell relative z-10 section-y-tight">
           <FadeIn className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-medium tracking-wide text-gold">
               رؤية المملكة 2030
