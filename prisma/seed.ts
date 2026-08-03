@@ -1,9 +1,18 @@
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient, PropertyStatus } from "../src/generated/prisma/client";
-import path from "node:path";
+import { Pool } from "pg";
 
-const url = `file:${path.join(process.cwd(), "dev.db")}`;
-const adapter = new PrismaBetterSqlite3({ url });
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  throw new Error("DATABASE_URL is not set");
+}
+
+const pool = new Pool({
+  connectionString,
+  ssl: { rejectUnauthorized: false },
+});
+const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 const SEED = [
@@ -123,4 +132,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
+    await pool.end();
   });
