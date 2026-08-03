@@ -21,14 +21,14 @@ export const BRAND = {
   hardhat: "/brand/hardhat.jpg",
   /** Centered logo on architectural grid */
   stationery: "/brand/stationery.jpg",
-  /** Wide cinematic lattice hero (logo removed, full building framing) */
-  heroLattice: "/brand/hero-lattice-wide.jpg",
+  /** Full-frame architectural dome (logo removed) — original curve preserved */
+  heroLattice: "/brand/hero-dome.jpg",
   alt: {
     logo: "شعار الحجاز للخدمات العقارية",
     facade: "واجهة مبنى تحمل شعار الحجاز للخدمات العقارية",
     businessCards: "بطاقات أعمال الحجاز للخدمات العقارية",
     hardhat: "خوذة سلامة تحمل شعار الحجاز للخدمات العقارية",
     stationery: "الهوية البصرية لمكتب الحجاز للخدمات العقارية",
-    heroLattice: "خلفية معمارية شبكية لمكتب الحجاز للخدمات العقارية",
+    heroLattice: "قبة معمارية منحنية لمكتب الحجاز للخدمات العقارية",
   },
 } as const;

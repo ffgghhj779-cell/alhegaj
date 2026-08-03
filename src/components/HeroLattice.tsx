@@ -5,65 +5,75 @@ import { motion, useReducedMotion } from "framer-motion";
 import { BRAND } from "@/lib/brand";
 
 /**
- * Architectural building hero — full structure visible (16:9 asset),
- * smooth left ↔ right scroll loop like a cinematic pan.
+ * Original dome architecture (full frame, no wide-crop) —
+ * rotates like orbiting under the upper half of a sphere.
  */
 export default function HeroLattice() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#050505]" aria-hidden>
-      <motion.div
-        className="absolute inset-y-0 left-0 h-full w-[112%] will-change-transform"
-        initial={false}
-        animate={
-          reduceMotion
-            ? { x: "-5%" }
-            : {
-                x: ["0%", "-10.7%", "0%"],
-              }
-        }
-        transition={
-          reduceMotion
-            ? { duration: 0 }
-            : {
-                duration: 34,
-                ease: [0.37, 0, 0.63, 1],
-                repeat: Infinity,
-                repeatType: "loop",
-              }
-        }
-      >
-        <Image
-          src={BRAND.heroLattice}
-          alt=""
-          fill
-          priority
-          quality={96}
-          sizes="120vw"
-          className="object-cover object-center"
-        />
-      </motion.div>
+    <div
+      className="absolute inset-0 overflow-hidden bg-[#030303]"
+      aria-hidden
+      style={{ perspective: "1800px", perspectiveOrigin: "50% 62%" }}
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          className="relative aspect-square h-[132%] w-auto will-change-transform"
+          style={{ transformStyle: "preserve-3d" }}
+          initial={false}
+          animate={
+            reduceMotion
+              ? { rotateY: 0, rotateX: 12 }
+              : {
+                  rotateY: [-18, 18, -18],
+                  rotateX: [10, 13, 10],
+                }
+          }
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : {
+                  duration: 40,
+                  ease: [0.42, 0, 0.58, 1],
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }
+          }
+        >
+          <Image
+            src={BRAND.heroLattice}
+            alt=""
+            fill
+            priority
+            quality={97}
+            sizes="(max-width: 768px) 150vh, 135vh"
+            className="object-cover object-center"
+          />
+        </motion.div>
+      </div>
 
       {!reduceMotion && (
         <motion.div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(100deg, transparent 25%, rgba(183,163,90,0.07) 50%, transparent 75%)",
-            backgroundSize: "200% 100%",
+              "radial-gradient(ellipse 65% 50% at 50% 40%, rgba(183,163,90,0.11), transparent 68%)",
           }}
-          animate={{ backgroundPositionX: ["0%", "100%", "0%"] }}
+          animate={{
+            opacity: [0.4, 0.7, 0.4],
+            x: ["-5%", "5%", "-5%"],
+          }}
           transition={{
-            duration: 34,
-            ease: [0.37, 0, 0.63, 1],
+            duration: 40,
+            ease: [0.42, 0, 0.58, 1],
             repeat: Infinity,
           }}
         />
       )}
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_55%,rgba(0,0,0,0.25)_88%,rgba(0,0,0,0.45)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,transparent_0%,transparent_38%,rgba(0,0,0,0.3)_75%,rgba(0,0,0,0.62)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
     </div>
   );
 }
