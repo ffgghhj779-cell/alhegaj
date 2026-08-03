@@ -17,7 +17,7 @@ export default function AdminLoginForm() {
       <div>
         <label
           htmlFor="admin-password"
-          className="mb-2 block text-sm font-medium text-black"
+          className="mb-2 block text-sm font-medium text-foreground"
         >
           كلمة المرور
         </label>
@@ -27,14 +27,14 @@ export default function AdminLoginForm() {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full rounded-md border border-border/90 bg-white px-4 py-3 text-sm outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.18)]"
+          className="min-h-11 w-full rounded-md border border-border bg-[var(--surface-elevated)] px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]"
           placeholder="••••••••"
           dir="ltr"
         />
       </div>
 
       {state.message ? (
-        <p className="rounded-md border border-gold/40 bg-gold-soft/25 px-4 py-3 text-sm text-black">
+        <p className="rounded-md border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold-soft">
           {state.message}
         </p>
       ) : null}

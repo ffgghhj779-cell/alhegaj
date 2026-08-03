@@ -42,19 +42,7 @@ export function toCardProperty(property: DbProperty): CardProperty {
   };
 }
 
-/** Gallery: primary image first; extras only as architectural atmosphere shots */
+/** Gallery: only real listing photos — never invent stock extras */
 export function galleryImages(primaryUrl: string, title: string) {
-  const extras = [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80",
-  ].filter((url) => url !== primaryUrl);
-
-  return [
-    { src: primaryUrl, alt: `الصورة الرئيسية — ${title}` },
-    ...extras.slice(0, 3).map((src, i) => ({
-      src,
-      alt: `منظر معماري إضافي ${i + 2} — ${title}`,
-    })),
-  ];
+  return [{ src: primaryUrl, alt: `الصورة الرئيسية — ${title}` }];
 }

@@ -23,16 +23,16 @@ function MapPlaceholder({
 }: InteractiveMapProps) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-border/80 bg-surface shadow-[0_10px_32px_-18px_rgba(0,0,0,0.08)] ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_10px_32px_-18px_rgba(0,0,0,0.45)] ${className ?? ""}`}
       style={{ height: height ?? 360 }}
       role="img"
       aria-label={title ? `خريطة موقع ${title}` : "خريطة الموقع"}
     >
       <div
-        className="absolute inset-0 opacity-55"
+        className="absolute inset-0 opacity-70"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, rgba(183,163,90,0.14) 0%, transparent 42%), linear-gradient(0deg, #f7f5ef 0%, #ffffff 100%), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(183,163,90,0.1) 40px), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(183,163,90,0.1) 40px)",
+            "linear-gradient(135deg, rgba(183,163,90,0.12) 0%, transparent 45%), linear-gradient(180deg, #18160f 0%, #0c0b09 100%), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(183,163,90,0.08) 40px), repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(183,163,90,0.08) 40px)",
         }}
         aria-hidden
       />
@@ -102,7 +102,7 @@ export default function InteractiveMap({
         mapboxAccessToken={token}
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/light-v11"
+        mapStyle="mapbox://styles/mapbox/dark-v11"
         style={{ width: "100%", height: "100%" }}
         attributionControl={false}
         reuseMaps

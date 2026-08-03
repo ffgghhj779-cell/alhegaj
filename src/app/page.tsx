@@ -32,30 +32,30 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative isolate min-h-[calc(100svh-4.25rem)] overflow-hidden sm:min-h-[calc(100svh-4.75rem)]">
+      <section className="relative isolate min-h-[min(100svh,52rem)] overflow-hidden sm:min-h-[calc(100svh-4.75rem)]">
         <HeroLattice />
 
-        <div className="page-shell relative z-10 flex min-h-[calc(100svh-4.25rem)] flex-col justify-end pb-20 pt-28 sm:min-h-[calc(100svh-4.75rem)] sm:pb-24 lg:pb-28">
-          <p className="animate-fade-up font-latin text-[0.7rem] font-medium tracking-[0.32em] text-gold-soft uppercase sm:text-[0.78rem]">
+        <div className="page-shell relative z-10 flex min-h-[min(100svh,52rem)] flex-col justify-end pb-14 pt-24 sm:min-h-[calc(100svh-4.75rem)] sm:pb-24 sm:pt-28 lg:pb-28">
+          <p className="animate-fade-up font-latin text-[0.65rem] font-medium tracking-[0.28em] text-gold-soft uppercase sm:text-[0.78rem] sm:tracking-[0.32em]">
             {SITE.nameEn}
           </p>
 
-          <h1 className="animate-fade-up-delay mt-5 max-w-3xl font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.12]">
+          <h1 className="animate-fade-up-delay mt-4 max-w-3xl font-display text-[2.1rem] font-extrabold tracking-tight text-white sm:mt-5 sm:text-5xl lg:text-6xl lg:leading-[1.12]">
             {SITE.nameShortAr}
-            <span className="mt-2 block text-2xl font-bold text-gold-soft sm:text-3xl lg:text-4xl">
+            <span className="mt-2 block text-xl font-bold text-gold-soft sm:text-3xl lg:text-4xl">
               {SITE.nameShortService}
             </span>
           </h1>
 
-          <p className="animate-fade-up-delay-2 mt-6 max-w-xl font-display text-base leading-[1.9] text-white/80 sm:text-lg">
+          <p className="animate-fade-up-delay-2 mt-4 max-w-xl font-display text-[0.95rem] leading-[1.85] text-white/80 sm:mt-6 sm:text-lg sm:leading-[1.9]">
             {SITE.tagline}
           </p>
 
-          <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3.5 sm:flex-row sm:items-center">
-            <Link href="/properties" className="btn-gold">
+          <div className="animate-fade-up-delay-2 mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
+            <Link href="/properties" className="btn-gold min-h-12 w-full sm:w-auto">
               استكشف العقارات
             </Link>
-            <Link href="/contact" className="btn-outline-light">
+            <Link href="/contact" className="btn-outline-light min-h-12 w-full sm:w-auto">
               تواصل معنا
             </Link>
           </div>

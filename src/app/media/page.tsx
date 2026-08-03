@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import MediaHighlights from "@/components/MediaHighlights";
-import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
 import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
@@ -102,12 +101,9 @@ export default function MediaPage() {
           </p>
         </FadeIn>
 
-        <StaggerGrid className="mt-14 columns-1 gap-5 sm:columns-2 sm:gap-6 lg:mt-16 lg:columns-3 lg:gap-7">
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-7">
           {GALLERY.map((item) => (
-            <StaggerItem
-              key={item.src}
-              className="mb-5 break-inside-avoid sm:mb-6 lg:mb-7"
-            >
+            <FadeIn key={item.src}>
               <figure className="group relative overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_10px_32px_-18px_rgba(0,0,0,0.45)] transition-[box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-20px_rgba(0,0,0,0.55)]">
                 <div
                   className={`relative w-full ${item.tall ? "aspect-[3/4]" : "aspect-[4/3]"}`}
@@ -117,16 +113,16 @@ export default function MediaPage() {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.04]"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
                 </div>
                 <figcaption className="border-t border-border/70 px-5 py-4 text-[0.8125rem] leading-7 text-muted">
                   {item.alt}
                 </figcaption>
               </figure>
-            </StaggerItem>
+            </FadeIn>
           ))}
-        </StaggerGrid>
+        </div>
 
         <FadeIn className="mt-24 lg:mt-28">
           <div className="mb-10 max-w-2xl">

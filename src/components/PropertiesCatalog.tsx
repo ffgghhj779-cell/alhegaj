@@ -47,7 +47,7 @@ export default function PropertiesCatalog({ properties }: PropertiesCatalogProps
   }, [properties, status, city, rooms, query]);
 
   const fieldClass =
-    "w-full rounded-md border border-border bg-[var(--surface-elevated)] px-3 py-2.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]";
+    "min-h-11 w-full rounded-md border border-border bg-[var(--surface-elevated)] px-3 py-2.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)] [&>option]:bg-[var(--surface-elevated)] [&>option]:text-foreground";
 
   return (
     <div>

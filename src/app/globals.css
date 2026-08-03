@@ -96,11 +96,11 @@ body {
 
 /* ——— Layout rhythm ——— */
 .page-shell {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-10;
 }
 
 .section-y {
-  @apply py-20 sm:py-24 lg:py-28;
+  @apply py-16 sm:py-24 lg:py-28;
 }
 
 .section-y-tight {

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import PropertiesCatalog from "@/components/PropertiesCatalog";
 import { prisma } from "@/lib/prisma";
@@ -24,7 +23,7 @@ export default async function PropertiesPage() {
       ? dbProperties.map(toCardProperty)
       : SAMPLE_PROPERTIES.map((p) => ({
           ...p,
-          href: `/properties/${p.id}`,
+          href: "/properties",
         }));
 
   return (
@@ -39,9 +38,6 @@ export default async function PropertiesPage() {
               استثنائية في أنحاء المملكة.
             </p>
           </div>
-          <Link href="/admin/add-property" className="btn-dark shrink-0 px-5">
-            إضافة عقار
-          </Link>
         </FadeIn>
 
         <div className="mt-12 sm:mt-14">

@@ -15,8 +15,15 @@ export function middleware(request: NextRequest) {
   }
 
   const expected = process.env.ADMIN_PASSWORD;
+  const loginUrl = request.nextUrl.clone();
+  loginUrl.pathname = "/admin/login";
+  loginUrl.searchParams.set("next", pathname);
+
+  // Never leave admin open in production without a password
   if (!expected) {
-    // No password configured — allow access in local/dev, but discourage production
+    if (process.env.NODE_ENV === "production") {
+      return NextResponse.redirect(loginUrl);
+    }
     return NextResponse.next();
   }
 
@@ -25,9 +32,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const loginUrl = request.nextUrl.clone();
-  loginUrl.pathname = "/admin/login";
-  loginUrl.searchParams.set("next", pathname);
   return NextResponse.redirect(loginUrl);
 }
 

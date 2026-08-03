@@ -18,9 +18,9 @@ const MOCK_COORDS = [
 ] as const;
 
 const inputClass =
-  "w-full rounded-md border border-border/90 bg-white px-4 py-3 text-[0.9375rem] text-black outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.18)]";
+  "min-h-11 w-full rounded-md border border-border bg-[var(--surface-elevated)] px-4 py-3 text-[0.9375rem] text-foreground outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]";
 
-const labelClass = "mb-2 block text-sm font-medium tracking-wide text-black";
+const labelClass = "mb-2 block text-sm font-medium tracking-wide text-foreground";
 
 export default function AddPropertyForm() {
   const [state, formAction, pending] = useActionState(addProperty, initialState);
@@ -237,7 +237,7 @@ export default function AddPropertyForm() {
       </div>
 
       {state.message && !state.ok ? (
-        <p className="rounded-lg border border-gold/40 bg-gold-soft/30 px-4 py-3 text-sm text-black">
+        <p className="rounded-lg border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold-soft">
           {state.message}
         </p>
       ) : null}
