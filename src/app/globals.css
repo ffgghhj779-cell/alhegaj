@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette — Alhijaz Real Estate */
+  /* Brand palette — Alhijaz Real Estate (dark + gold) */
   --gold: #b7a35a;
   --gold-deep: #b7a35b;
   --gold-soft: #ddd3b0;
@@ -9,20 +9,19 @@
   --white: #ffffff;
   --black: #000000;
 
-  --background: var(--white);
-  --foreground: var(--black);
-  --muted: #7a7264;
-  --muted-strong: #4a453c;
-  --surface: #f7f5ef;
-  --surface-elevated: #ffffff;
-  --border: color-mix(in srgb, var(--gold-soft) 42%, transparent);
+  --background: #070706;
+  --foreground: #f4f0e6;
+  --muted: #a39a86;
+  --muted-strong: #d2c8ae;
+  --surface: #11100d;
+  --surface-elevated: #18160f;
+  --border: color-mix(in srgb, var(--gold) 28%, transparent);
 
-  /* Soft, expensive elevation */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
-  --shadow-sm: 0 6px 24px -12px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 14px 40px -18px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 22px 56px -24px rgba(0, 0, 0, 0.14);
-  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gold) 22%, transparent);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 8px 28px -14px rgba(0, 0, 0, 0.55);
+  --shadow-md: 0 16px 44px -18px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 60px -22px rgba(0, 0, 0, 0.65);
+  --shadow-focus: 0 0 0 3px color-mix(in srgb, var(--gold) 28%, transparent);
 
   --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 220ms;
@@ -39,6 +38,7 @@
   --color-muted: var(--muted);
   --color-muted-strong: var(--muted-strong);
   --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
   --color-white: var(--white);
   --color-black: var(--black);
@@ -55,6 +55,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,8 +90,8 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--gold) 32%, transparent);
-  color: var(--black);
+  background: color-mix(in srgb, var(--gold) 38%, transparent);
+  color: var(--white);
 }
 
 /* ——— Layout rhythm ——— */
@@ -112,22 +113,22 @@ body {
 }
 
 .heading-display {
-  @apply text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-[3.5rem];
+  @apply text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem];
   line-height: 1.18;
 }
 
 .heading-page {
-  @apply text-[2rem] font-bold tracking-tight text-black sm:text-4xl lg:text-[2.75rem];
+  @apply text-[2rem] font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem];
   line-height: 1.22;
 }
 
 .heading-section {
-  @apply text-2xl font-bold tracking-tight text-black sm:text-[1.85rem] lg:text-3xl;
+  @apply text-2xl font-bold tracking-tight text-foreground sm:text-[1.85rem] lg:text-3xl;
   line-height: 1.28;
 }
 
 .heading-card {
-  @apply text-lg font-semibold tracking-tight text-black sm:text-xl;
+  @apply text-lg font-semibold tracking-tight text-foreground sm:text-xl;
   line-height: 1.4;
 }
 
@@ -143,16 +144,19 @@ body {
 
 /* ——— Surfaces & elevation ——— */
 .surface-card {
-  @apply rounded-2xl border border-border bg-white;
+  @apply rounded-2xl border border-border bg-surface-elevated;
+  background-color: var(--surface-elevated);
   box-shadow: var(--shadow-sm);
   transition:
     box-shadow var(--duration) var(--ease-out-premium),
-    transform var(--duration) var(--ease-out-premium);
+    transform var(--duration) var(--ease-out-premium),
+    border-color var(--duration) var(--ease-out-premium);
 }
 
 .surface-card-hover:hover {
   box-shadow: var(--shadow-md);
   transform: translate3d(0, -4px, 0);
+  border-color: color-mix(in srgb, var(--gold) 45%, transparent);
 }
 
 /* ——— Buttons ——— */
@@ -160,7 +164,7 @@ body {
 .btn-dark,
 .btn-outline-light {
   @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold;
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-black;
   transition:
     background-color var(--duration) var(--ease-out-premium),
     color var(--duration) var(--ease-out-premium),
@@ -191,21 +195,23 @@ body {
 }
 
 .btn-dark {
-  @apply bg-black text-white;
+  @apply border border-gold/40 bg-transparent text-gold-soft;
 }
 
 .btn-dark:hover {
   background-color: var(--gold);
+  border-color: var(--gold);
   color: var(--black);
 }
 
 .btn-outline-light {
-  @apply border border-white/35 bg-white/5 text-white backdrop-blur-sm;
+  @apply border border-gold/35 bg-white/5 text-gold-soft backdrop-blur-sm;
 }
 
 .btn-outline-light:hover {
   border-color: var(--gold-soft);
-  background-color: rgb(255 255 255 / 0.12);
+  background-color: rgb(183 163 90 / 0.14);
+  color: var(--white);
 }
 
 /* ——— Motion ——— */

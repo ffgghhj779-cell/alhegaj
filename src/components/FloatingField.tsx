@@ -7,7 +7,7 @@ import type {
 } from "react";
 
 const fieldShell =
-  "peer w-full rounded-md border border-border/90 bg-white px-4 pt-6 pb-2.5 text-[0.9375rem] text-black outline-none transition-[border-color,box-shadow,background-color] duration-300 placeholder-transparent focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.18)]";
+  "peer w-full rounded-md border border-border bg-[var(--surface-elevated)] px-4 pt-6 pb-2.5 text-[0.9375rem] text-foreground outline-none transition-[border-color,box-shadow,background-color] duration-300 placeholder-transparent focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]";
 
 const labelShell =
   "pointer-events-none absolute start-4 top-1/2 z-[1] origin-top-right -translate-y-1/2 text-sm text-muted transition-[transform,color,top,font-size] duration-300 ease-out peer-focus:top-2.5 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:font-medium peer-focus:text-gold peer-[:not(:placeholder-shown)]:top-2.5 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:font-medium peer-[:not(:placeholder-shown)]:text-gold";

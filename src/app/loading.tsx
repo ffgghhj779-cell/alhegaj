@@ -9,7 +9,7 @@ export default function Loading() {
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-2xl border border-border/60 bg-white"
+              className="overflow-hidden rounded-2xl border border-border/60 bg-[var(--surface-elevated)]"
             >
               <div className="aspect-[4/3] animate-pulse bg-black/5" />
               <div className="space-y-3 p-6">

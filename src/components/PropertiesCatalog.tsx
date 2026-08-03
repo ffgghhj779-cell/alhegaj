@@ -47,7 +47,7 @@ export default function PropertiesCatalog({ properties }: PropertiesCatalogProps
   }, [properties, status, city, rooms, query]);
 
   const fieldClass =
-    "w-full rounded-md border border-border/90 bg-white px-3 py-2.5 text-sm outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.18)]";
+    "w-full rounded-md border border-border bg-[var(--surface-elevated)] px-3 py-2.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-300 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]";
 
   return (
     <div>
@@ -122,8 +122,8 @@ export default function PropertiesCatalog({ properties }: PropertiesCatalogProps
       </p>
 
       {filtered.length === 0 ? (
-        <div className="mt-10 rounded-2xl border border-border bg-white px-6 py-16 text-center">
-          <p className="text-lg font-semibold text-black">لا توجد نتائج مطابقة</p>
+        <div className="mt-10 rounded-2xl border border-border bg-[var(--surface-elevated)] px-6 py-16 text-center">
+          <p className="text-lg font-semibold text-foreground">لا توجد نتائج مطابقة</p>
           <p className="mt-2 text-sm text-muted">جرّب تعديل الفلاتر أو كلمة البحث.</p>
         </div>
       ) : (

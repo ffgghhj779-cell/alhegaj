@@ -42,8 +42,8 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300 ease-out ${
         scrolled || open
-          ? "border-b border-border/80 bg-white/95 shadow-[0_8px_30px_-18px_rgba(0,0,0,0.1)] backdrop-blur-md"
-          : "border-b border-transparent bg-white/75 backdrop-blur-sm"
+          ? "border-b border-gold/20 bg-black/90 shadow-[0_10px_40px_-18px_rgba(0,0,0,0.7)] backdrop-blur-md"
+          : "border-b border-transparent bg-black/70 backdrop-blur-sm"
       }`}
     >
       <nav
@@ -55,7 +55,7 @@ export default function Navbar() {
           className="group min-w-0 shrink-0 transition-opacity duration-300 hover:opacity-90"
           aria-label="الحجاز للخدمات العقارية — الصفحة الرئيسية"
         >
-          <BrandLockup tone="light" priority />
+          <BrandLockup tone="dark" priority />
         </Link>
 
         <ul className="hidden items-center gap-0.5 lg:flex">
@@ -68,7 +68,7 @@ export default function Navbar() {
                   className={`group relative px-3 py-2.5 text-[0.8125rem] font-medium tracking-wide transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 xl:px-3.5 xl:text-[0.875rem] ${
                     active
                       ? "text-gold"
-                      : "text-muted-strong/80 hover:text-gold"
+                      : "text-white/65 hover:text-gold-soft"
                   }`}
                 >
                   {item.label}
@@ -89,14 +89,14 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className="btn-dark hidden px-5 py-2.5 text-[0.8125rem] sm:inline-flex"
+            className="btn-gold hidden px-5 py-2.5 text-[0.8125rem] sm:inline-flex"
           >
             احجز استشارة
           </Link>
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-black transition-[border-color,color,background-color] duration-300 hover:border-gold hover:bg-surface hover:text-gold lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gold/30 text-gold-soft transition-[border-color,color,background-color] duration-300 hover:border-gold hover:bg-gold/10 hover:text-gold lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
@@ -126,7 +126,7 @@ export default function Navbar() {
 
       <div
         id="mobile-menu"
-        className={`overflow-hidden border-t border-border bg-white transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
+        className={`overflow-hidden border-t border-gold/15 bg-black transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
           open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -139,8 +139,8 @@ export default function Navbar() {
                   href={item.href}
                   className={`block rounded-md px-4 py-3.5 text-base font-medium transition-colors duration-300 ${
                     active
-                      ? "bg-surface text-gold"
-                      : "text-black hover:bg-surface hover:text-gold"
+                      ? "bg-gold/10 text-gold"
+                      : "text-white/75 hover:bg-gold/5 hover:text-gold-soft"
                   }`}
                 >
                   {item.label}
@@ -151,7 +151,7 @@ export default function Navbar() {
           <li className="pt-3">
             <Link
               href="/contact"
-              className="btn-dark flex w-full px-4 py-3.5"
+              className="btn-gold flex w-full px-4 py-3.5"
             >
               احجز استشارة
             </Link>

@@ -61,9 +61,9 @@ export default function HeroLattice() {
         />
       )}
 
-      {/* Match brand plate vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.82)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/50" />
+      {/* Soft vignette — keep lattice readable, no logo in frame */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,rgba(0,0,0,0.35)_68%,rgba(0,0,0,0.72)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/45" />
     </div>
   );
 }

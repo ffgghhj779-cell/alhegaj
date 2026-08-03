@@ -22,7 +22,7 @@ function SpecRow({
         <Icon className="size-4 shrink-0 text-gold" strokeWidth={1.6} aria-hidden />
         {label}
       </span>
-      <span className="text-sm font-semibold tracking-tight text-black">
+      <span className="text-sm font-semibold tracking-tight text-foreground">
         {value}
       </span>
     </div>
@@ -39,7 +39,7 @@ export default function PropertySidebar({ property }: PropertySidebarProps) {
           {statusLabel(status)}
         </span>
 
-        <p className="mt-5 text-2xl font-bold tracking-tight text-black sm:text-[1.75rem]">
+        <p className="mt-5 text-2xl font-bold tracking-tight text-foreground sm:text-[1.75rem]">
           {formatPrice(property.price, status)}
         </p>
 

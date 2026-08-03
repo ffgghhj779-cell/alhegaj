@@ -40,7 +40,7 @@ function MapPlaceholder({
         <span className="inline-flex size-12 items-center justify-center rounded-full bg-gold/15 text-gold">
           <MapPin className="size-5" strokeWidth={1.6} aria-hidden />
         </span>
-        <p className="text-sm font-semibold tracking-tight text-black">
+        <p className="text-sm font-semibold tracking-tight text-foreground">
           الخريطة التفاعلية غير مفعّلة
         </p>
         <p className="max-w-sm text-xs leading-7 text-muted">
@@ -117,7 +117,7 @@ export default function InteractiveMap({
             <span className="rounded-md bg-black px-2 py-1 text-[0.65rem] font-semibold text-gold-soft">
               {title ?? "الموقع"}
             </span>
-            <MapPin className="mt-1 size-8 fill-gold text-black" aria-hidden />
+            <MapPin className="mt-1 size-8 fill-gold text-foreground" aria-hidden />
           </span>
         </Marker>
       </Map>

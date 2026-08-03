@@ -53,11 +53,11 @@ export default function PropertyCard({
 
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_8px_28px_-16px_rgba(0,0,0,0.1)] transition-[transform,box-shadow,border-color] duration-300 ease-out will-change-transform hover:-translate-y-1 hover:border-gold/35 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.14)] ${className}`}
+      className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_8px_28px_-16px_rgba(0,0,0,0.45)] transition-[transform,box-shadow,border-color] duration-300 ease-out will-change-transform hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.55)] ${className}`}
     >
       <Link
         href={href}
-        className="flex h-full flex-col outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
+        className="flex h-full flex-col outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-surface">
           <Image
@@ -99,7 +99,7 @@ export default function PropertyCard({
             <p className="text-[0.75rem] font-medium tracking-wide text-gold-mid">
               {location}
             </p>
-            <h3 className="text-base font-bold leading-snug tracking-tight text-black sm:text-lg">
+            <h3 className="text-base font-bold leading-snug tracking-tight text-foreground sm:text-lg">
               {title}
             </h3>
             <p className="mt-2 text-lg font-bold tracking-tight text-gold sm:text-xl">

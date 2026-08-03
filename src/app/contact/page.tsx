@@ -30,7 +30,7 @@ export default function ContactPage() {
           </p>
         </FadeIn>
 
-        <FadeIn className="mt-10 overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_10px_32px_-18px_rgba(0,0,0,0.08)]">
+        <FadeIn className="mt-10 overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_10px_32px_-18px_rgba(0,0,0,0.45)]">
           <div className="relative aspect-[21/9] min-h-[140px] sm:aspect-[3/1]">
             <Image
               src={BRAND.businessCards}

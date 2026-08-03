@@ -64,7 +64,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
               <li className="text-border" aria-hidden>
                 /
               </li>
-              <li className="font-medium text-black">{property.title}</li>
+              <li className="font-medium text-foreground">{property.title}</li>
             </ol>
           </nav>
 

@@ -21,8 +21,8 @@ export const BRAND = {
   hardhat: "/brand/hardhat.jpg",
   /** Centered logo on architectural grid */
   stationery: "/brand/stationery.jpg",
-  /** High-res architectural lattice hero background */
-  heroLattice: "/brand/hero-lattice.jpg",
+  /** High-res architectural lattice hero background (logo removed) */
+  heroLattice: "/brand/hero-lattice-clean.jpg",
   alt: {
     logo: "شعار الحجاز للخدمات العقارية",
     facade: "واجهة مبنى تحمل شعار الحجاز للخدمات العقارية",

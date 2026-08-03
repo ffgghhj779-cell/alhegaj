@@ -108,7 +108,7 @@ export default function MediaPage() {
               key={item.src}
               className="mb-5 break-inside-avoid sm:mb-6 lg:mb-7"
             >
-              <figure className="group relative overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_10px_32px_-18px_rgba(0,0,0,0.1)] transition-[box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-20px_rgba(0,0,0,0.14)]">
+              <figure className="group relative overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_10px_32px_-18px_rgba(0,0,0,0.45)] transition-[box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-20px_rgba(0,0,0,0.55)]">
                 <div
                   className={`relative w-full ${item.tall ? "aspect-[3/4]" : "aspect-[4/3]"}`}
                 >

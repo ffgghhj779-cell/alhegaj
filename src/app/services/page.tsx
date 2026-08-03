@@ -49,7 +49,7 @@ export default function ServicesPage() {
             <p className="body-lead mt-5">{SERVICES_INTRO}</p>
           </FadeIn>
           <FadeIn delay={0.08}>
-            <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-2xl bg-white shadow-[0_14px_40px_-18px_rgba(0,0,0,0.12)] lg:mx-0 lg:max-w-none">
+            <div className="relative mx-auto aspect-square max-w-md overflow-hidden rounded-2xl bg-[var(--surface-elevated)] shadow-[0_14px_40px_-18px_rgba(0,0,0,0.5)] lg:mx-0 lg:max-w-none">
               <Image
                 src={BRAND.hardhat}
                 alt={BRAND.alt.hardhat}

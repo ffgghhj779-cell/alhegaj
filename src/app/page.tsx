@@ -118,7 +118,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-background">
         <div className="page-shell section-y">
           <FadeIn className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
             <div>
@@ -162,7 +162,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-background">
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-6 h-px w-14 bg-gold" aria-hidden />
@@ -172,7 +172,7 @@ export default async function HomePage() {
             {TESTIMONIALS.map((item) => (
               <StaggerItem key={item.name}>
                 <blockquote className="h-full border-s-2 border-gold/60 ps-5">
-                  <p className="body-copy text-black/85">&ldquo;{item.quote}&rdquo;</p>
+                  <p className="body-copy text-foreground/85">&ldquo;{item.quote}&rdquo;</p>
                   <footer className="mt-4 text-sm font-semibold text-gold-mid">
                     {item.name}
                   </footer>

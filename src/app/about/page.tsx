@@ -47,7 +47,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-background">
         <div className="page-shell section-y grid gap-12 lg:grid-cols-2 lg:gap-16">
           <FadeIn>
             <p className="eyebrow">الرؤية</p>
@@ -122,7 +122,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-background">
         <div className="page-shell section-y grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <FadeIn>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface">
@@ -144,7 +144,7 @@ export default function AboutPage() {
                   <span className="text-sm font-bold tracking-wide text-gold">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="body-copy text-black/85">{goal}</p>
+                  <p className="body-copy text-foreground/85">{goal}</p>
                 </li>
               ))}
             </ol>
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   <span className="text-sm font-bold tracking-wide text-gold">
                     {String(index + 5).padStart(2, "0")}
                   </span>
-                  <p className="body-copy text-black/85">{goal}</p>
+                  <p className="body-copy text-foreground/85">{goal}</p>
                 </li>
               </FadeIn>
             ))}

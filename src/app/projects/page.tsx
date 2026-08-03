@@ -27,7 +27,7 @@ export default function ProjectsPage() {
         <StaggerGrid className="mt-14 grid gap-8 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           {PROJECTS.map((project) => (
             <StaggerItem key={project.id}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-white shadow-[0_8px_28px_-16px_rgba(0,0,0,0.1)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-gold/35 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.14)]">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] shadow-[0_8px_28px_-16px_rgba(0,0,0,0.45)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.55)]">
                 <div className="relative aspect-[4/3] overflow-hidden bg-surface">
                   <Image
                     src={project.image}
