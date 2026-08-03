@@ -8,6 +8,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: "/about", label: "من نحن" },
   { href: "/services", label: "خدماتنا" },
   { href: "/properties", label: "العقارات" },
+  { href: "/projects", label: "مشاريعنا" },
   { href: "/media", label: "الوسائط" },
   { href: "/contact", label: "تواصل معنا" },
 ] as const;
@@ -29,6 +30,7 @@ export const SITE = {
     instagram: "https://instagram.com/",
     tiktok: "https://www.tiktok.com/",
     twitter: "https://x.com/",
+    linkedin: "https://www.linkedin.com/",
   },
 } as const;
 

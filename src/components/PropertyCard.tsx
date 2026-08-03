@@ -86,6 +86,12 @@ export default function PropertyCard({
               ))}
             </ul>
           )}
+
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-black/0 opacity-0 transition-[opacity,background-color] duration-300 group-hover:bg-black/40 group-hover:opacity-100 group-focus-within:bg-black/40 group-focus-within:opacity-100">
+            <span className="rounded-md bg-gold px-5 py-2.5 text-sm font-bold text-black shadow-sm">
+              تفاصيل
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-1 flex-col gap-3.5 p-5 sm:p-6">

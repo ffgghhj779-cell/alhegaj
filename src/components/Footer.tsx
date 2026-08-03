@@ -48,6 +48,16 @@ export default function Footer() {
                 X
               </a>
             </li>
+            <li>
+              <a
+                href={SITE.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/55 transition-colors duration-300 hover:text-gold-soft"
+              >
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </div>
 

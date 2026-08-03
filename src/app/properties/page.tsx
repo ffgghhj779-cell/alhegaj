@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
-import PropertyCard from "@/components/PropertyCard";
-import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
+import PropertiesCatalog from "@/components/PropertiesCatalog";
 import { prisma } from "@/lib/prisma";
 import { SAMPLE_PROPERTIES } from "@/lib/properties";
 import { toCardProperty } from "@/lib/property-utils";
@@ -10,7 +9,7 @@ import { toCardProperty } from "@/lib/property-utils";
 export const metadata: Metadata = {
   title: "العقارات",
   description:
-    "تصفح مجموعة منتقاة من العقارات الفاخرة في المملكة العربية السعودية.",
+    "تصفح مجموعة منتقاة من العقارات الفاخرة في المملكة العربية السعودية — بيع وإيجار.",
 };
 
 export const dynamic = "force-dynamic";
@@ -45,13 +44,9 @@ export default async function PropertiesPage() {
           </Link>
         </FadeIn>
 
-        <StaggerGrid className="mt-14 grid grid-cols-1 gap-8 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {cards.map((property, index) => (
-            <StaggerItem key={property.id}>
-              <PropertyCard property={property} priority={index < 2} />
-            </StaggerItem>
-          ))}
-        </StaggerGrid>
+        <div className="mt-12 sm:mt-14">
+          <PropertiesCatalog properties={cards} />
+        </div>
       </div>
     </section>
   );
