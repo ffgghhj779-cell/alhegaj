@@ -27,34 +27,36 @@ export default function PropertyGallery({ images }: { images: GalleryImage[] }) 
         />
       </div>
 
-      <ul className="grid grid-cols-4 gap-2.5 sm:gap-3.5">
-        {images.map((image, index) => {
-          const selected = index === active;
-          return (
-            <li key={`${image.src}-${index}`}>
-              <button
-                type="button"
-                onClick={() => setActive(index)}
-                aria-label={`عرض الصورة ${index + 1}`}
-                aria-pressed={selected}
-                className={`relative aspect-[4/3] w-full overflow-hidden rounded-xl border transition-[border-color,opacity,transform] duration-300 ease-out ${
-                  selected
-                    ? "border-gold opacity-100"
-                    : "border-transparent opacity-75 hover:opacity-100"
-                }`}
-              >
-                <Image
-                  src={image.src}
-                  alt=""
-                  fill
-                  sizes="120px"
-                  className="object-cover"
-                />
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      {images.length > 1 ? (
+        <ul className="grid grid-cols-4 gap-2.5 sm:gap-3.5">
+          {images.map((image, index) => {
+            const selected = index === active;
+            return (
+              <li key={`${image.src}-${index}`}>
+                <button
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={`عرض الصورة ${index + 1}`}
+                  aria-pressed={selected}
+                  className={`relative aspect-[4/3] w-full overflow-hidden rounded-xl border transition-[border-color,opacity,transform] duration-300 ease-out ${
+                    selected
+                      ? "border-gold opacity-100"
+                      : "border-transparent opacity-75 hover:opacity-100"
+                  }`}
+                >
+                  <Image
+                    src={image.src}
+                    alt=""
+                    fill
+                    sizes="120px"
+                    className="object-cover"
+                  />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
     </div>
   );
 }

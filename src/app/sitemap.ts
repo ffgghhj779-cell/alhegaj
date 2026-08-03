@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
+import { PROJECTS } from "@/lib/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl =
@@ -22,6 +23,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "" ? 1 : 0.8,
   }));
 
+  const projectRoutes = PROJECTS.map((project) => ({
+    url: `${siteUrl}/projects/${project.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   try {
     const properties = await prisma.property.findMany({
       select: { id: true, updatedAt: true },
@@ -34,8 +42,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticRoutes, ...propertyRoutes];
+    return [...staticRoutes, ...projectRoutes, ...propertyRoutes];
   } catch {
-    return staticRoutes;
+    return [...staticRoutes, ...projectRoutes];
   }
 }

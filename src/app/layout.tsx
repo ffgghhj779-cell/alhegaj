@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat, Tajawal } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { BRAND } from "@/lib/brand";
 import { SITE } from "@/lib/navigation";
 import "./globals.css";
 
@@ -44,6 +46,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE.nameAr }],
   creator: SITE.nameAr,
+  icons: {
+    icon: BRAND.logoMark,
+    apple: BRAND.logoMark,
+  },
   openGraph: {
     type: "website",
     locale: "ar_SA",
@@ -51,11 +57,20 @@ export const metadata: Metadata = {
     siteName: SITE.nameAr,
     title: `${SITE.nameAr} | ${SITE.nameEn}`,
     description: SITE.description,
+    images: [
+      {
+        url: BRAND.facade,
+        width: 1200,
+        height: 630,
+        alt: SITE.nameAr,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.nameAr} | ${SITE.nameEn}`,
     description: SITE.description,
+    images: [BRAND.facade],
   },
   robots: {
     index: true,
@@ -89,6 +104,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );

@@ -75,7 +75,7 @@ export default function InteractiveMap({
           subdomains="abcd"
           maxZoom={20}
         />
-        <ZoomControl position="topleft" />
+        <ZoomControl position="topright" />
         <Marker position={position} icon={icon} title={title ?? "الموقع"} />
       </MapContainer>
     </div>

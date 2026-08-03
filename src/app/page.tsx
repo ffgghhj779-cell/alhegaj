@@ -7,14 +7,15 @@ import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
 import { BRAND } from "@/lib/brand";
 import {
   MISSION,
-  PARTNERS,
   TESTIMONIALS,
+  TRUST_MARKS,
   VALUES,
   VISION_2030,
 } from "@/lib/content";
 import { SITE } from "@/lib/navigation";
 import { prisma } from "@/lib/prisma";
 import { SAMPLE_PROPERTIES } from "@/lib/properties";
+import { PROJECTS } from "@/lib/projects";
 import { toCardProperty } from "@/lib/property-utils";
 
 export const dynamic = "force-dynamic";
@@ -66,7 +67,8 @@ export default async function HomePage() {
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-6 h-px w-14 bg-gold" aria-hidden />
-            <h2 className="heading-section">{SITE.tagline}</h2>
+            <p className="eyebrow">رسالتنا</p>
+            <h2 className="heading-section mt-3">قيمة مستدامة لعملائنا</h2>
             <p className="body-lead mt-5">{MISSION}</p>
           </FadeIn>
 
@@ -145,12 +147,61 @@ export default async function HomePage() {
 
       <section className="bg-surface">
         <div className="page-shell section-y">
+          <FadeIn className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow">من السوق السعودي</p>
+              <h2 className="heading-section mt-3">مشاريع حديثة</h2>
+            </div>
+            <Link
+              href="/projects"
+              className="text-sm font-semibold text-gold transition-colors duration-300 hover:text-gold-mid"
+            >
+              كل المشاريع
+            </Link>
+          </FadeIn>
+
+          <StaggerGrid className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-10">
+            {PROJECTS.slice(0, 3).map((project) => (
+              <StaggerItem key={project.id}>
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-[var(--surface-elevated)] transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-gold/40"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-surface">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-2 p-5">
+                    <p className="text-[0.75rem] text-gold-mid">
+                      {project.city} — {project.district}
+                    </p>
+                    <h3 className="text-base font-bold text-foreground sm:text-lg">
+                      {project.title}
+                    </h3>
+                    <p className="line-clamp-2 text-sm leading-7 text-muted">
+                      {project.summary}
+                    </p>
+                  </div>
+                </Link>
+              </StaggerItem>
+            ))}
+          </StaggerGrid>
+        </div>
+      </section>
+
+      <section className="bg-background">
+        <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">شركاؤنا</p>
-            <h2 className="heading-section mt-3">شراكات تعزّز الثقة</h2>
+            <p className="eyebrow">معايير العمل</p>
+            <h2 className="heading-section mt-3">نلتزم بما يثق به السوق</h2>
           </FadeIn>
           <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-            {PARTNERS.map((name) => (
+            {TRUST_MARKS.map((name) => (
               <li
                 key={name}
                 className="text-sm font-semibold tracking-wide text-muted-strong/80 sm:text-base"
@@ -162,7 +213,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-background">
+      <section className="bg-surface">
         <div className="page-shell section-y">
           <FadeIn className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-6 h-px w-14 bg-gold" aria-hidden />
@@ -173,8 +224,9 @@ export default async function HomePage() {
               <StaggerItem key={item.name}>
                 <blockquote className="h-full border-s-2 border-gold/60 ps-5">
                   <p className="body-copy text-foreground/85">&ldquo;{item.quote}&rdquo;</p>
-                  <footer className="mt-4 text-sm font-semibold text-gold-mid">
-                    {item.name}
+                  <footer className="mt-4">
+                    <p className="text-sm font-semibold text-gold-mid">{item.name}</p>
+                    <p className="mt-1 text-xs text-muted">{item.role}</p>
                   </footer>
                 </blockquote>
               </StaggerItem>
@@ -193,10 +245,10 @@ export default async function HomePage() {
               استشارة أولية، وخيارات واضحة، ومتابعة حتى إتمام الصفقة.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/projects" className="btn-gold">
+              <Link href="/projects" className="btn-gold min-h-11">
                 مشاريعنا
               </Link>
-              <Link href="/contact" className="btn-outline-light">
+              <Link href="/contact" className="btn-outline-light min-h-11">
                 تواصل معنا
               </Link>
             </div>

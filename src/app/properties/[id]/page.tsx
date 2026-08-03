@@ -6,38 +6,58 @@ import FadeIn from "@/components/FadeIn";
 import PropertyGallery from "@/components/PropertyGallery";
 import PropertySidebar from "@/components/PropertySidebar";
 import { prisma } from "@/lib/prisma";
+import { getSampleProperty } from "@/lib/properties";
 import { galleryImages, statusLabel } from "@/lib/property-utils";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
+async function resolveProperty(id: string) {
+  try {
+    const fromDb = await prisma.property.findUnique({ where: { id } });
+    if (fromDb) return { property: fromDb, galleryExtra: undefined as undefined };
+  } catch {
+    /* DB unavailable — fall through to samples */
+  }
+
+  const sample = getSampleProperty(id);
+  if (!sample) return null;
+
+  return {
+    property: sample,
+    galleryExtra: sample.gallery,
+  };
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const property = await prisma.property.findUnique({ where: { id } });
-
-  if (!property) {
-    return { title: "عقار غير موجود" };
-  }
+  const resolved = await resolveProperty(id);
+  if (!resolved) return { title: "عقار غير موجود" };
 
   return {
-    title: property.title,
-    description: property.description.slice(0, 160),
+    title: resolved.property.title,
+    description: resolved.property.description.slice(0, 160),
   };
 }
 
 export default async function PropertyDetailsPage({ params }: PageProps) {
   const { id } = await params;
-  const property = await prisma.property.findUnique({ where: { id } });
+  const resolved = await resolveProperty(id);
+  if (!resolved) notFound();
 
-  if (!property) notFound();
+  const { property, galleryExtra } = resolved;
+  const images =
+    galleryExtra && galleryExtra.length > 0
+      ? galleryExtra
+      : galleryImages(property.imageUrl, property.title);
 
-  const images = galleryImages(property.imageUrl, property.title);
+  const waText = `السلام عليكم، أرغب بالاستفسار عن العقار: ${property.title}`;
 
   return (
-    <section className="bg-surface">
+    <section className="bg-surface pb-[5.5rem] lg:pb-0">
       <div className="page-shell section-y-tight">
         <FadeIn>
           <nav aria-label="مسار التنقل" className="mb-8 text-sm text-muted">
@@ -108,7 +128,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
           </div>
 
           <FadeIn delay={0.05}>
-            <PropertySidebar property={property} />
+            <PropertySidebar property={property} whatsappText={waText} />
           </FadeIn>
         </div>
       </div>

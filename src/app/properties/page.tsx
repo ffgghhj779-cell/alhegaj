@@ -21,10 +21,7 @@ export default async function PropertiesPage() {
   const cards =
     dbProperties.length > 0
       ? dbProperties.map(toCardProperty)
-      : SAMPLE_PROPERTIES.map((p) => ({
-          ...p,
-          href: "/properties",
-        }));
+      : SAMPLE_PROPERTIES;
 
   return (
     <section className="bg-surface">

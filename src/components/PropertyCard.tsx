@@ -124,6 +124,10 @@ export default function PropertyCard({
               value={`${baths.toLocaleString("ar-SA")} حمّام`}
             />
           </ul>
+
+          <span className="mt-1 inline-flex min-h-10 items-center text-sm font-semibold text-gold transition-colors group-hover:text-gold-mid">
+            عرض التفاصيل
+          </span>
         </div>
       </Link>
     </article>

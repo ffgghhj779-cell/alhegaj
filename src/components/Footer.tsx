@@ -1,9 +1,10 @@
 import Link from "next/link";
 import BrandLockup from "@/components/BrandLockup";
-import { NAV_ITEMS, SITE } from "@/lib/navigation";
+import { getConfiguredSocialLinks, NAV_ITEMS, SITE } from "@/lib/navigation";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const social = getConfiguredSocialLinks();
 
   return (
     <footer className="mt-auto border-t border-gold/15 bg-black text-white">
@@ -19,48 +20,22 @@ export default function Footer() {
           <p className="mt-6 max-w-md text-[0.9375rem] leading-[1.9] text-white/70">
             {SITE.description}
           </p>
-          <ul className="mt-6 flex flex-wrap gap-4 text-sm">
-            <li>
-              <a
-                href={SITE.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 transition-colors duration-300 hover:text-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a
-                href={SITE.social.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 transition-colors duration-300 hover:text-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
-              >
-                TikTok
-              </a>
-            </li>
-            <li>
-              <a
-                href={SITE.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 transition-colors duration-300 hover:text-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
-              >
-                X
-              </a>
-            </li>
-            <li>
-              <a
-                href={SITE.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 transition-colors duration-300 hover:text-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
-              >
-                LinkedIn
-              </a>
-            </li>
-          </ul>
+          {social.length > 0 ? (
+            <ul className="mt-6 flex flex-wrap gap-4 text-sm">
+              {social.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white/60 transition-colors duration-300 hover:text-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         <div className="lg:col-span-3">

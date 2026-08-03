@@ -149,7 +149,7 @@ export default function Navbar() {
           open ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <ul className="page-shell flex flex-col gap-1 py-5">
+        <ul className="page-shell flex flex-col gap-1 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
           {NAV_ITEMS.map((item) => {
             const active = isNavActive(pathname, item.href);
             return (

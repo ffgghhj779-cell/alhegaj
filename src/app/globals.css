@@ -163,7 +163,7 @@ body {
 .btn-gold,
 .btn-dark,
 .btn-outline-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold;
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm font-semibold;
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-black;
   transition:
     background-color var(--duration) var(--ease-out-premium),

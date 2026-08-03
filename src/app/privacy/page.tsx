@@ -47,6 +47,15 @@ export default function PrivacyPage() {
             </section>
 
             <section>
+              <h2 className="heading-card">الاحتفاظ بالبيانات</h2>
+              <p className="body-copy mt-3">
+                لا نخزّن بيانات النموذج في خادم الموقع بشكل دائم؛ الرسالة تُفتح عبر
+                واتساب على جهازكم. لأي طلب حذف لمتابعة سابقة عبر واتساب، راسلونا على
+                البريد أدناه.
+              </p>
+            </section>
+
+            <section>
               <h2 className="heading-card">التواصل معنا</h2>
               <p className="body-copy mt-3">
                 لأي استفسار حول الخصوصية:{" "}
