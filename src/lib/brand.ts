@@ -21,7 +21,7 @@ export const BRAND = {
   hardhat: "/brand/hardhat.jpg",
   /** Centered logo on architectural grid */
   stationery: "/brand/stationery.jpg",
-  /** Full-frame architectural dome (logo removed) — original curve preserved */
+  /** Unused by hero now — kept for media/about brand plates */
   heroLattice: "/brand/hero-dome.jpg",
   alt: {
     logo: "شعار الحجاز للخدمات العقارية",
