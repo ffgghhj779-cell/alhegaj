@@ -11,14 +11,12 @@ import {
   KeyRound,
   LineChart,
   Megaphone,
-  MessageCircle,
   Search,
   Share2,
 } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
 import { BRAND } from "@/lib/brand";
-import { buildWhatsAppUrl } from "@/lib/navigation";
 import { getServiceBySlug, SERVICES } from "@/lib/services";
 
 const ICONS = [
@@ -61,9 +59,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   const index = SERVICES.findIndex((s) => s.slug === slug);
   const Icon = ICONS[index] ?? Home;
-  const waUrl = buildWhatsAppUrl(
-    `السلام عليكم، أرغب بطلب خدمة: ${service.title}\n\nأرغب بالتنسيق مع مكتب الحجاز للخدمات العقارية.`,
-  );
 
   return (
     <section className="bg-surface">
@@ -106,20 +101,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <p className="body-lead mt-5">{service.summary}</p>
               <p className="body-copy mt-4">{service.body}</p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="#service-request" className="btn-gold min-h-11">
-                  اطلب من الموقع
-                </a>
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-dark min-h-11"
-                >
-                  <MessageCircle className="size-4" aria-hidden />
-                  طلب عبر واتساب
-                </a>
-              </div>
+              <a href="#service-request" className="btn-gold mt-8 inline-flex min-h-11">
+                اطلب من الموقع
+              </a>
             </FadeIn>
 
             <FadeIn delay={0.08}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import {
   FloatingInput,
   FloatingSelect,
@@ -12,7 +12,6 @@ import {
   type SubmitServiceRequestState,
 } from "@/app/services/actions";
 import type { ServiceDef } from "@/lib/services";
-import { buildWhatsAppUrl } from "@/lib/navigation";
 
 const initial: SubmitServiceRequestState = { ok: false, message: "" };
 
@@ -48,28 +47,17 @@ export default function ServiceRequestForm({ service }: ServiceRequestFormProps)
             </span>
           </p>
         ) : null}
-        <div className="flex flex-col gap-3 sm:flex-row">
-          {state.whatsappUrl ? (
-            <a
-              href={state.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold min-h-11"
-            >
-              <MessageCircle className="size-4" aria-hidden />
-              متابعة عبر واتساب
-            </a>
-          ) : null}
-          <button
-            type="button"
-            className="btn-dark min-h-11"
-            onClick={() => {
-              setLocalOk(false);
-            }}
-          >
-            إرسال طلب آخر
-          </button>
-        </div>
+        <p className="text-sm leading-7 text-muted">
+          سيظهر الطلب مباشرة في لوحة إدارة الموقع، وسيتواصل معكم فريق الحجاز عبر
+          الجوال المسجّل.
+        </p>
+        <button
+          type="button"
+          className="btn-gold min-h-11"
+          onClick={() => setLocalOk(false)}
+        >
+          إرسال طلب آخر
+        </button>
       </div>
     );
   }
@@ -81,8 +69,8 @@ export default function ServiceRequestForm({ service }: ServiceRequestFormProps)
       <div>
         <h3 className="heading-card">طلب الخدمة من الموقع</h3>
         <p className="mt-2 text-sm leading-7 text-muted">
-          عبّئوا البيانات التالية وسنحفظ الطلب مباشرة لدى الإدارة — ويمكنكم
-          متابعة التنسيق عبر واتساب بعد الإرسال.
+          عبّئوا البيانات المطلوبة أدناه. يُحفظ الطلب داخل الموقع ويصل مباشرة إلى
+          لوحة الإدارة — دون تحويل لواتساب.
         </p>
       </div>
 
@@ -110,6 +98,7 @@ export default function ServiceRequestForm({ service }: ServiceRequestFormProps)
         label="المدينة"
         placeholder="الرياض"
         autoComplete="address-level2"
+        required
       />
 
       {service.fields.map((field) => {
@@ -172,29 +161,20 @@ export default function ServiceRequestForm({ service }: ServiceRequestFormProps)
         </p>
       ) : null}
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <button type="submit" disabled={pending} className="btn-gold min-h-11 flex-1">
-          {pending ? (
-            <>
-              <Loader2 className="size-4 animate-spin" aria-hidden />
-              جاري الإرسال...
-            </>
-          ) : (
-            "إرسال الطلب"
-          )}
-        </button>
-        <a
-          href={buildWhatsAppUrl(
-            `السلام عليكم، أرغب بطلب خدمة: ${service.title}\n\nأرغب بالتنسيق مع مكتب الحجاز للخدمات العقارية.`,
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-dark min-h-11 flex-1"
-        >
-          <MessageCircle className="size-4" aria-hidden />
-          طلب سريع عبر واتساب
-        </a>
-      </div>
+      <button
+        type="submit"
+        disabled={pending}
+        className="btn-gold min-h-11 w-full"
+      >
+        {pending ? (
+          <>
+            <Loader2 className="size-4 animate-spin" aria-hidden />
+            جاري إرسال الطلب...
+          </>
+        ) : (
+          "إرسال الطلب للإدارة"
+        )}
+      </button>
     </form>
   );
 }

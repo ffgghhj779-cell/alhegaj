@@ -9,7 +9,6 @@ export type SubmitServiceRequestState = {
   ok: boolean;
   message: string;
   requestId?: string;
-  whatsappUrl?: string;
 };
 
 function cleanPhone(value: string) {
@@ -40,6 +39,10 @@ export async function submitServiceRequest(
     return { ok: false, message: "رقم الجوال غير صالح." };
   }
 
+  if (!city) {
+    return { ok: false, message: "يرجى إدخال المدينة." };
+  }
+
   const details: Record<string, string> = {};
   for (const field of service.fields) {
     const raw = String(formData.get(`detail_${field.id}`) ?? "").trim();
@@ -63,27 +66,18 @@ export async function submitServiceRequest(
       },
     });
 
-    const { buildServiceRequestWhatsAppUrl } = await import(
-      "@/lib/service-requests"
-    );
-    const whatsappUrl = buildServiceRequestWhatsAppUrl(
-      service,
-      { serviceSlug, name, phone, city, notes, details },
-      created.id.slice(-8).toUpperCase(),
-    );
-
     revalidatePath("/admin/requests");
 
     return {
       ok: true,
-      message: "تم استلام طلبكم بنجاح. سيتواصل معكم فريق الحجاز قريباً.",
+      message:
+        "تم استلام طلبكم بنجاح وحفظه في لوحة الإدارة. سيتواصل معكم فريق الحجاز قريباً.",
       requestId: created.id,
-      whatsappUrl,
     };
   } catch {
     return {
       ok: false,
-      message: "تعذّر حفظ الطلب حالياً. يرجى المحاولة مرة أخرى أو التواصل عبر واتساب.",
+      message: "تعذّر حفظ الطلب حالياً. يرجى المحاولة مرة أخرى بعد قليل.",
     };
   }
 }
