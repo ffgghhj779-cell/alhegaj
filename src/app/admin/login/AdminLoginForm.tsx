@@ -8,7 +8,7 @@ const initial: AdminLoginState = { ok: false, message: "" };
 
 export default function AdminLoginForm() {
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/admin/add-property";
+  const next = searchParams.get("next") || "/admin/requests";
   const [state, action, pending] = useActionState(adminLogin, initial);
 
   return (

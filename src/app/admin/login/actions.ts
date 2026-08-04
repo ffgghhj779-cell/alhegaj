@@ -15,7 +15,7 @@ export async function adminLogin(
   formData: FormData,
 ): Promise<AdminLoginState> {
   const password = String(formData.get("password") ?? "");
-  const next = String(formData.get("next") ?? "/admin/add-property");
+  const next = String(formData.get("next") ?? "/admin/requests");
   const expected = process.env.ADMIN_PASSWORD;
 
   if (!expected) {
@@ -38,7 +38,7 @@ export async function adminLogin(
     maxAge: 60 * 60 * 24 * 7,
   });
 
-  redirect(next.startsWith("/admin") ? next : "/admin/add-property");
+  redirect(next.startsWith("/admin") ? next : "/admin/requests");
 }
 
 export async function adminLogout() {

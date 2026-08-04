@@ -83,6 +83,7 @@ type FloatingSelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label: string;
   error?: string;
   options: readonly string[];
+  placeholderOption?: string;
 };
 
 export function FloatingSelect({
@@ -90,6 +91,7 @@ export function FloatingSelect({
   label,
   error,
   options,
+  placeholderOption = "اختر…",
   className = "",
   ...props
 }: FloatingSelectProps) {
@@ -100,11 +102,14 @@ export function FloatingSelect({
         className={`${fieldShell} appearance-none pe-10 ${error ? "border-red-400/80" : ""} ${className}`}
         {...props}
       >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
+        <option value="">{placeholderOption}</option>
+        {options
+          .filter((option) => option !== "")
+          .map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
       </select>
       <label
         htmlFor={id}

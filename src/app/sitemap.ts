@@ -23,6 +23,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "" ? 1 : 0.8,
   }));
 
+  const { SERVICES } = await import("@/lib/services");
+  const serviceRoutes = SERVICES.map((service) => ({
+    url: `${siteUrl}/services/${service.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+
   const projectRoutes = PROJECTS.map((project) => ({
     url: `${siteUrl}/projects/${project.id}`,
     lastModified: new Date(),
@@ -42,8 +50,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticRoutes, ...projectRoutes, ...propertyRoutes];
+    return [
+      ...staticRoutes,
+      ...serviceRoutes,
+      ...projectRoutes,
+      ...propertyRoutes,
+    ];
   } catch {
-    return [...staticRoutes, ...projectRoutes];
+    return [...staticRoutes, ...serviceRoutes, ...projectRoutes];
   }
 }

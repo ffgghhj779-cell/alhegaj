@@ -10,13 +10,15 @@ import {
   KeyRound,
   LineChart,
   Megaphone,
+  MessageCircle,
   Search,
   Share2,
 } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import StaggerGrid, { StaggerItem } from "@/components/StaggerGrid";
 import { BRAND } from "@/lib/brand";
-import { SERVICES, SERVICES_INTRO } from "@/lib/content";
+import { buildWhatsAppUrl } from "@/lib/navigation";
+import { SERVICES, SERVICES_INTRO } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "خدماتنا",
@@ -65,21 +67,37 @@ export default function ServicesPage() {
         <StaggerGrid className="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-2 lg:gap-8">
           {SERVICES.map((service, index) => {
             const Icon = ICONS[index] ?? Home;
+            const waUrl = buildWhatsAppUrl(
+              `السلام عليكم، أرغب بطلب خدمة: ${service.title}`,
+            );
             return (
-              <StaggerItem key={service.title}>
-                <article className="surface-card flex h-full gap-4 p-6 sm:p-7">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
-                    <Icon className="size-5" strokeWidth={1.6} aria-hidden />
-                  </span>
-                  <div>
-                    <h2 className="heading-card text-lg">{service.title}</h2>
-                    <p className="body-copy mt-2">{service.body}</p>
+              <StaggerItem key={service.slug}>
+                <article className="surface-card flex h-full flex-col gap-4 p-6 sm:p-7">
+                  <div className="flex gap-4">
+                    <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+                      <Icon className="size-5" strokeWidth={1.6} aria-hidden />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <h2 className="heading-card text-lg">{service.title}</h2>
+                      <p className="body-copy mt-2">{service.body}</p>
+                    </div>
+                  </div>
+                  <div className="mt-auto flex flex-col gap-2 border-t border-border/70 pt-4 sm:flex-row sm:items-center">
                     <Link
-                      href="/contact"
-                      className="mt-4 inline-flex text-sm font-semibold text-gold transition-colors hover:text-gold-mid"
+                      href={`/services/${service.slug}`}
+                      className="btn-gold min-h-11 flex-1 text-sm"
                     >
-                      اطلب استشارة
+                      اطلب من الموقع
                     </Link>
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-dark min-h-11 flex-1 text-sm"
+                    >
+                      <MessageCircle className="size-4" aria-hidden />
+                      واتساب
+                    </a>
                   </div>
                 </article>
               </StaggerItem>
@@ -92,10 +110,11 @@ export default function ServicesPage() {
             هل تبحثون عن خدمة عقارية محددة؟
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-white/65 sm:text-base">
-            فريقنا جاهز لتقديم استشارة مخصصة وفق احتياجكم وميزانيتكم.
+            اختاروا الخدمة المناسبة وعبّئوا الطلب من الموقع، أو تواصلوا مباشرة عبر
+            واتساب.
           </p>
           <Link href="/contact" className="btn-gold mt-8">
-            تواصل معنا
+            تواصل عام
           </Link>
         </FadeIn>
       </div>
