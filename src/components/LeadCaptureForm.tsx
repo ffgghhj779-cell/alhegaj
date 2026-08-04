@@ -1,110 +1,148 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { MessageCircle } from "lucide-react";
+import { useActionState, useEffect, useState } from "react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import {
   FloatingInput,
   FloatingSelect,
   FloatingTextarea,
 } from "@/components/FloatingField";
 import {
-  LEAD_INTERESTS,
-  buildWhatsAppLeadUrl,
-  type LeadPayload,
-} from "@/lib/leads";
+  submitContactRequest,
+  type SubmitContactState,
+} from "@/app/contact/actions";
+import { LEAD_INTERESTS } from "@/lib/leads";
+
+const initial: SubmitContactState = { ok: false, message: "" };
 
 type LeadCaptureFormProps = {
-  adminWhatsApp: string;
+  defaultInterest?: string;
+  defaultMessage?: string;
+  source?: string;
+  sourceRef?: string;
 };
 
-export default function LeadCaptureForm({ adminWhatsApp }: LeadCaptureFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LeadPayload>({
-    defaultValues: {
-      name: "",
-      phone: "",
-      interest: "استشارة",
-      message: "",
-    },
-    mode: "onBlur",
-  });
+export default function LeadCaptureForm({
+  defaultInterest = "استشارة",
+  defaultMessage = "",
+  source = "contact",
+  sourceRef = "",
+}: LeadCaptureFormProps) {
+  const [state, formAction, pending] = useActionState(
+    submitContactRequest,
+    initial,
+  );
+  const [done, setDone] = useState(false);
 
-  function onSubmit(data: LeadPayload) {
-    const url = buildWhatsAppLeadUrl(adminWhatsApp, data);
-    // Hard redirect to Admin WhatsApp (wa.me) with structured Arabic lead payload
-    window.location.assign(url);
+  useEffect(() => {
+    if (state.ok) setDone(true);
+  }, [state]);
+
+  if (done && state.ok) {
+    const ref = state.requestId?.slice(-8).toUpperCase();
+    return (
+      <div className="space-y-5">
+        <div className="inline-flex size-12 items-center justify-center rounded-full bg-gold/15 text-gold">
+          <CheckCircle2 className="size-6" aria-hidden />
+        </div>
+        <h3 className="heading-card text-lg">تم استلام طلبكم</h3>
+        <p className="body-copy">{state.message}</p>
+        {ref ? (
+          <p className="text-sm text-muted">
+            رقم المرجع:{" "}
+            <span className="font-semibold text-gold" dir="ltr">
+              {ref}
+            </span>
+          </p>
+        ) : null}
+        <button
+          type="button"
+          className="btn-gold min-h-11"
+          onClick={() => setDone(false)}
+        >
+          إرسال طلب آخر
+        </button>
+      </div>
+    );
   }
+
+  const interestDefault = (LEAD_INTERESTS as readonly string[]).includes(
+    defaultInterest,
+  )
+    ? defaultInterest
+    : "استشارة";
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      action={formAction}
       className="space-y-6"
       noValidate
       aria-label="نموذج طلب تواصل"
     >
+      <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="sourceRef" value={sourceRef} />
+
       <FloatingInput
         id="lead-name"
+        name="name"
         label="الاسم الكامل"
         autoComplete="name"
-        error={errors.name?.message}
-        {...register("name", {
-          required: "الاسم مطلوب",
-          minLength: { value: 2, message: "يرجى إدخال اسم صحيح" },
-        })}
+        required
       />
 
       <FloatingInput
         id="lead-phone"
+        name="phone"
         label="رقم الجوال"
         type="tel"
         inputMode="tel"
         autoComplete="tel"
         dir="ltr"
         className="text-start"
-        error={errors.phone?.message}
-        {...register("phone", {
-          required: "رقم الجوال مطلوب",
-          pattern: {
-            value: /^[+0-9\s()-]{8,20}$/,
-            message: "رقم الجوال غير صالح",
-          },
-        })}
+        required
       />
 
       <FloatingSelect
         id="lead-interest"
+        name="interest"
         label="نوع الاهتمام"
         options={LEAD_INTERESTS}
-        error={errors.interest?.message}
-        {...register("interest", { required: "اختر نوع الاهتمام" })}
+        defaultValue={interestDefault}
+        required
       />
 
       <FloatingTextarea
         id="lead-message"
+        name="message"
         label="رسالتك"
         rows={5}
-        error={errors.message?.message}
-        {...register("message", {
-          required: "الرسالة مطلوبة",
-          minLength: { value: 8, message: "يرجى كتابة تفاصيل أوضح" },
-        })}
+        required
+        defaultValue={defaultMessage}
       />
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="btn-gold w-full"
-      >
-        <MessageCircle className="size-4" aria-hidden />
-        {isSubmitting ? "جاري التوجيه..." : "إرسال عبر واتساب"}
+      {state.message && !state.ok ? (
+        <p
+          className="rounded-lg border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold-soft"
+          role="alert"
+        >
+          {state.message}
+        </p>
+      ) : null}
+
+      <button type="submit" disabled={pending} className="btn-gold w-full min-h-11">
+        {pending ? (
+          <>
+            <Loader2 className="size-4 animate-spin" aria-hidden />
+            جاري الإرسال...
+          </>
+        ) : (
+          "إرسال الطلب"
+        )}
       </button>
 
       <p className="text-center text-xs leading-6 text-muted">
-        بالضغط على الإرسال سيتم فتح واتساب الإدارة تلقائياً برسالة منسّقة تحتوي
-        على بياناتكم.
+        يُحفظ الطلب داخل المنصة ويصل مباشرة إلى لوحة الإدارة — واتساب خيار مستقل
+        من الشريط الجانبي إن رغبتكم.
       </p>
     </form>
   );

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Bath, BedDouble, Maximize2, MessageCircle, Phone } from "lucide-react";
+import { Bath, BedDouble, Maximize2, Phone } from "lucide-react";
 import type { PropertyStatus } from "@/generated/prisma/client";
-import { buildWhatsAppUrl } from "@/lib/navigation";
 import { formatPrice, statusLabel } from "@/lib/property-utils";
 
 type SidebarProperty = {
+  id?: string;
   title: string;
   price: number;
   status: PropertyStatus | "Sale" | "Rent";
@@ -15,7 +15,6 @@ type SidebarProperty = {
 
 type PropertySidebarProps = {
   property: SidebarProperty;
-  whatsappText?: string;
 };
 
 function SpecRow({
@@ -40,15 +39,10 @@ function SpecRow({
   );
 }
 
-export default function PropertySidebar({
-  property,
-  whatsappText,
-}: PropertySidebarProps) {
+export default function PropertySidebar({ property }: PropertySidebarProps) {
   const status = property.status as PropertyStatus;
-  const waUrl = buildWhatsAppUrl(
-    whatsappText ??
-      `السلام عليكم، أرغب بالاستفسار عن العقار: ${property.title}`,
-  );
+  const interest = status === "Rent" ? "إيجار" : "شراء";
+  const contactHref = `/contact?interest=${encodeURIComponent(interest)}&source=property&ref=${encodeURIComponent(property.id ?? "")}&message=${encodeURIComponent(`أرغب بالاستفسار عن العقار: ${property.title}`)}`;
 
   return (
     <>
@@ -80,39 +74,21 @@ export default function PropertySidebar({
             />
           </div>
 
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold mt-7 w-full min-h-11"
-          >
-            <MessageCircle className="size-4" aria-hidden />
-            واتساب مباشرة
-          </a>
-
-          <Link href="/contact" className="btn-dark mt-3 w-full min-h-11">
+          <Link href={contactHref} className="btn-gold mt-7 w-full min-h-11">
             <Phone className="size-4" aria-hidden />
-            نموذج التواصل
+            طلب من الموقع
           </Link>
 
           <p className="mt-4 text-center text-xs leading-6 text-muted">
-            فريق الحجاز جاهز لترتيب زيارة خاصة بسرية تامة.
+            يُرسل الطلب إلى لوحة الإدارة داخل المنصة.
           </p>
         </div>
       </aside>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/20 bg-black/95 p-3 backdrop-blur-md lg:hidden">
-        <div className="mx-auto flex max-w-lg gap-2">
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold min-h-11 flex-1 text-sm"
-          >
-            واتساب
-          </a>
-          <Link href="/contact" className="btn-dark min-h-11 flex-1 text-sm">
-            تواصل
+        <div className="mx-auto flex max-w-lg">
+          <Link href={contactHref} className="btn-gold min-h-11 flex-1 text-sm">
+            طلب من الموقع
           </Link>
         </div>
       </div>

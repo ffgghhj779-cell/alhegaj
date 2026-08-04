@@ -39,7 +39,13 @@ export default function AdminShell({
                 href="/admin/requests"
                 className="rounded-md border border-border px-3 py-2 text-muted-strong transition-colors hover:border-gold/40 hover:text-gold"
               >
-                الطلبات
+                طلبات الخدمات
+              </Link>
+              <Link
+                href="/admin/contacts"
+                className="rounded-md border border-border px-3 py-2 text-muted-strong transition-colors hover:border-gold/40 hover:text-gold"
+              >
+                طلبات التواصل
               </Link>
               <Link
                 href="/admin/add-property"

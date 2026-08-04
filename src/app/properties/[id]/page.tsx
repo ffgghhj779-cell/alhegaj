@@ -54,8 +54,6 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
       ? galleryExtra
       : galleryImages(property.imageUrl, property.title);
 
-  const waText = `السلام عليكم، أرغب بالاستفسار عن العقار: ${property.title}`;
-
   return (
     <section className="bg-surface pb-[5.5rem] lg:pb-0">
       <div className="page-shell section-y-tight">
@@ -134,7 +132,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
           </div>
 
           <FadeIn delay={0.05}>
-            <PropertySidebar property={property} whatsappText={waText} />
+            <PropertySidebar property={property} />
           </FadeIn>
         </div>
       </div>

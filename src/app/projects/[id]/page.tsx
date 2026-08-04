@@ -5,7 +5,7 @@ import { Building2, CalendarDays, Layers, MapPin, Timer } from "lucide-react";
 import DynamicMap from "@/components/DynamicMap";
 import FadeIn from "@/components/FadeIn";
 import PropertyGallery from "@/components/PropertyGallery";
-import { buildWhatsAppUrl, SITE } from "@/lib/navigation";
+import { SITE } from "@/lib/navigation";
 import { getProjectById, PROJECTS } from "@/lib/projects";
 
 type PageProps = {
@@ -53,9 +53,7 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
   const project = getProjectById(id);
   if (!project) notFound();
 
-  const waUrl = buildWhatsAppUrl(
-    `السلام عليكم، أرغب بالاستفسار عن مشروع: ${project.title} (${project.city})`,
-  );
+  const contactHref = `/contact?interest=${encodeURIComponent("استشارة")}&source=project&ref=${encodeURIComponent(project.id)}&message=${encodeURIComponent(`أرغب بالاستفسار عن مشروع: ${project.title} (${project.city})`)}`;
 
   return (
     <section className="bg-surface pb-[5.5rem] lg:pb-0">
@@ -220,19 +218,11 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
                   </div>
                 </dl>
 
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-gold mt-7 w-full min-h-11"
-                >
-                  استفسر عبر واتساب
-                </a>
-                <Link href="/contact" className="btn-dark mt-3 w-full min-h-11">
-                  طلب استشارة مماثلة
+                <Link href={contactHref} className="btn-gold mt-7 w-full min-h-11">
+                  طلب من الموقع
                 </Link>
                 <p className="mt-4 text-center text-xs leading-6 text-muted">
-                  {SITE.nameShortAr} — نرتّب عرضاً مشابهاً حسب مدينتكم وميزانيتكم.
+                  {SITE.nameShortAr} — يُرسل الطلب إلى لوحة الإدارة داخل المنصة.
                 </p>
               </div>
             </aside>
@@ -241,17 +231,9 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/20 bg-black/95 p-3 backdrop-blur-md lg:hidden safe-bottom">
-        <div className="mx-auto flex max-w-lg gap-2">
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold min-h-11 flex-1 text-sm"
-          >
-            واتساب
-          </a>
-          <Link href="/contact" className="btn-dark min-h-11 flex-1 text-sm">
-            تواصل
+        <div className="mx-auto flex max-w-lg">
+          <Link href={contactHref} className="btn-gold min-h-11 flex-1 text-sm">
+            طلب من الموقع
           </Link>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import DynamicMap from "@/components/DynamicMap";
 import FadeIn from "@/components/FadeIn";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
@@ -11,10 +10,20 @@ import { getAdminWhatsApp, SITE } from "@/lib/navigation";
 export const metadata: Metadata = {
   title: "تواصل معنا",
   description:
-    "تواصل مع فريق الحجاز للخدمات العقارية — نموذج طلب يُوجَّه تلقائياً إلى واتساب الإدارة.",
+    "تواصل مع فريق الحجاز للخدمات العقارية — أرسلوا طلباً عبر الموقع يصل مباشرة إلى الإدارة.",
 };
 
-export default function ContactPage() {
+type PageProps = {
+  searchParams: Promise<{
+    interest?: string;
+    message?: string;
+    source?: string;
+    ref?: string;
+  }>;
+};
+
+export default async function ContactPage({ searchParams }: PageProps) {
+  const params = await searchParams;
   const adminWhatsApp = getAdminWhatsApp();
 
   return (
@@ -25,8 +34,8 @@ export default function ContactPage() {
           <p className="eyebrow">نحن هنا</p>
           <h1 className="heading-page mt-3">تواصل معنا</h1>
           <p className="body-lead mt-5">
-            اتركوا بياناتكم واهتمامكم — يُعاد توجيه الطلب فوراً إلى واتساب الإدارة
-            برسالة عربية منسّقة.
+            اتركوا بياناتكم واهتمامكم عبر نموذج الموقع — يصل الطلب مباشرة إلى لوحة
+            الإدارة داخل المنصة.
           </p>
         </FadeIn>
 
@@ -52,11 +61,16 @@ export default function ContactPage() {
             <div className="surface-card p-6 sm:p-9 lg:p-10">
               <h2 className="heading-card">نموذج طلب تواصل</h2>
               <p className="body-copy mt-3">
-                جميع الحقول مطلوبة. بعد الإرسال تُفتح محادثة واتساب الإدارة
-                تلقائياً.
+                عبّئوا الحقول أدناه لإرسال طلب داخل المنصة. واتساب يبقى خياراً
+                منفصلاً من البطاقة الجانبية.
               </p>
               <div className="mt-8">
-                <LeadCaptureForm adminWhatsApp={adminWhatsApp} />
+                <LeadCaptureForm
+                  defaultInterest={params.interest}
+                  defaultMessage={params.message}
+                  source={params.source || "contact"}
+                  sourceRef={params.ref || ""}
+                />
               </div>
             </div>
           </FadeIn>
@@ -111,14 +125,18 @@ export default function ContactPage() {
                   </li>
                 </ul>
 
-                <Link
+                <a
                   href={`https://wa.me/${adminWhatsApp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-gold mt-8 w-full"
+                  className="btn-dark mt-8 w-full min-h-11"
                 >
+                  <MessageCircle className="size-4" aria-hidden />
                   واتساب مباشر
-                </Link>
+                </a>
+                <p className="mt-3 text-center text-[0.7rem] leading-6 text-white/45">
+                  خيار مستقل للدردشة السريعة — منفصل عن نموذج الموقع أعلاه.
+                </p>
               </div>
             </FadeIn>
 
