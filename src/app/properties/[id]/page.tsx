@@ -121,7 +121,13 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
                   lat={property.lat}
                   lng={property.lng}
                   title={property.title}
+                  address={
+                    [property.city, property.address].filter(Boolean).join(" — ") ||
+                    undefined
+                  }
                   height={400}
+                  interactive
+                  showDirections
                 />
               </div>
             </FadeIn>

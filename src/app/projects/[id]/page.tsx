@@ -183,7 +183,10 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
                   lat={project.lat}
                   lng={project.lng}
                   title={project.title}
+                  address={`${project.city} — ${project.district}`}
                   height={360}
+                  interactive
+                  showDirections
                 />
               </div>
             </FadeIn>

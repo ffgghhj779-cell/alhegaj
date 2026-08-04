@@ -129,7 +129,10 @@ export default function ContactPage() {
                   lat={SITE.lat}
                   lng={SITE.lng}
                   title={SITE.nameAr}
+                  address={SITE.address}
                   height={300}
+                  interactive
+                  showDirections
                 />
               </div>
             </FadeIn>

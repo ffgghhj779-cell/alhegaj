@@ -43,6 +43,13 @@ export async function addProperty(
     return { ok: false, message: "تحقق من الأرقام والإحداثيات المدخلة." };
   }
 
+  if (lat < 16 || lat > 33 || lng < 34 || lng > 56) {
+    return {
+      ok: false,
+      message: "الإحداثيات خارج نطاق المملكة تقريباً — حدّدوا الموقع من الخريطة.",
+    };
+  }
+
   const property = await prisma.property.create({
     data: {
       title,

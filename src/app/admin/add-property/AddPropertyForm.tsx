@@ -1,7 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { MapPin, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import LocationPicker, {
+  type LocationPickResult,
+} from "@/components/LocationPicker";
 import { addProperty, type AddPropertyState } from "./actions";
 
 const initialState: AddPropertyState = { ok: false, message: "" };
@@ -9,13 +12,8 @@ const initialState: AddPropertyState = { ok: false, message: "" };
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80";
 
-/** Mock geocode targets around Riyadh / major SA cities */
-const MOCK_COORDS = [
-  { lat: 24.7136, lng: 46.6753, label: "الرياض" },
-  { lat: 21.4858, lng: 39.1925, label: "جدة" },
-  { lat: 26.4207, lng: 50.0888, label: "الدمام" },
-  { lat: 21.3891, lng: 39.8579, label: "مكة المكرمة" },
-] as const;
+const DEFAULT_LAT = 24.7136;
+const DEFAULT_LNG = 46.6753;
 
 const inputClass =
   "min-h-11 w-full rounded-md border border-border bg-[var(--surface-elevated)] px-4 py-3 text-[0.9375rem] text-foreground outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 focus:border-gold focus:shadow-[0_0_0_3px_rgba(183,163,90,0.22)]";
@@ -24,20 +22,20 @@ const labelClass = "mb-2 block text-sm font-medium tracking-wide text-foreground
 
 export default function AddPropertyForm() {
   const [state, formAction, pending] = useActionState(addProperty, initialState);
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
-  const [geoNote, setGeoNote] = useState("");
+  const [lat, setLat] = useState(DEFAULT_LAT);
+  const [lng, setLng] = useState(DEFAULT_LNG);
+  const [city, setCity] = useState("الرياض");
+  const [address, setAddress] = useState("");
 
-  function mockGeocode() {
-    const pick = MOCK_COORDS[Math.floor(Math.random() * MOCK_COORDS.length)];
-    const jitter = () => (Math.random() - 0.5) * 0.04;
-    setLat((pick.lat + jitter()).toFixed(6));
-    setLng((pick.lng + jitter()).toFixed(6));
-    setGeoNote(`تم استخراج إحداثيات تقريبية لمنطقة ${pick.label}`);
+  function handleLocation(next: LocationPickResult) {
+    setLat(next.lat);
+    setLng(next.lng);
+    if (next.cityHint) setCity(next.cityHint);
+    if (next.addressHint) setAddress(next.addressHint);
   }
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formAction} className="space-y-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
           <label htmlFor="title" className={labelClass}>
@@ -103,7 +101,8 @@ export default function AddPropertyForm() {
             required
             className={inputClass}
             placeholder="الرياض"
-            defaultValue="الرياض"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
         </div>
 
@@ -155,7 +154,7 @@ export default function AddPropertyForm() {
           />
         </div>
 
-        <div>
+        <div className="sm:col-span-2">
           <label htmlFor="imageUrl" className={labelClass}>
             رابط الصورة
           </label>
@@ -172,69 +171,41 @@ export default function AddPropertyForm() {
 
         <div className="sm:col-span-2">
           <label htmlFor="address" className={labelClass}>
-            العنوان
-          </label>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <input
-              id="address"
-              name="address"
-              className={`${inputClass} flex-1`}
-              placeholder="الرياض، حي الياسمين — شارع الأمير..."
-            />
-            <button
-              type="button"
-              onClick={mockGeocode}
-              className="btn-dark inline-flex shrink-0 items-center gap-2 px-5 text-gold-soft hover:text-black"
-            >
-              <MapPin className="size-4" aria-hidden />
-              استخراج الإحداثيات
-            </button>
-          </div>
-          {geoNote ? (
-            <p className="mt-2 text-xs text-gold">{geoNote}</p>
-          ) : (
-            <p className="mt-2 text-xs text-muted">
-              محاكاة للترميز الجغرافي — يملأ إحداثيات تجريبية تلقائياً.
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor="lat" className={labelClass}>
-            خط العرض (Lat)
+            العنوان الظاهر للعميل
           </label>
           <input
-            id="lat"
-            name="lat"
-            type="number"
-            step="any"
-            required
-            value={lat}
-            onChange={(e) => setLat(e.target.value)}
+            id="address"
+            name="address"
             className={inputClass}
-            placeholder="24.713600"
-            dir="ltr"
+            placeholder="الرياض، حي الياسمين — شارع الأمير..."
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
-        </div>
-
-        <div>
-          <label htmlFor="lng" className={labelClass}>
-            خط الطول (Lng)
-          </label>
-          <input
-            id="lng"
-            name="lng"
-            type="number"
-            step="any"
-            required
-            value={lng}
-            onChange={(e) => setLng(e.target.value)}
-            className={inputClass}
-            placeholder="46.675300"
-            dir="ltr"
-          />
+          <p className="mt-2 text-xs leading-6 text-muted">
+            يُحدَّث تلقائياً عند اختيار نقطة على الخريطة — يمكنكم تعديله يدوياً.
+          </p>
         </div>
       </div>
+
+      <section className="surface-card space-y-4 p-5 sm:p-6">
+        <div>
+          <h2 className="heading-card text-base sm:text-lg">موقع الوحدة على الخريطة</h2>
+          <p className="mt-2 text-sm leading-7 text-muted">
+            حدّدوا الموقع بدقة كما سيظهر للعملاء في صفحة العقار — بالبحث، أو الضغط
+            على الخريطة، أو سحب الدبوس الذهبي.
+          </p>
+        </div>
+
+        <LocationPicker
+          lat={lat}
+          lng={lng}
+          address={address}
+          onChange={handleLocation}
+        />
+
+        <input type="hidden" name="lat" value={lat} />
+        <input type="hidden" name="lng" value={lng} />
+      </section>
 
       {state.message && !state.ok ? (
         <p className="rounded-lg border border-gold/40 bg-gold/10 px-4 py-3 text-sm text-gold-soft">
@@ -242,11 +213,7 @@ export default function AddPropertyForm() {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="btn-gold w-full sm:w-auto"
-      >
+      <button type="submit" disabled={pending} className="btn-gold w-full sm:w-auto">
         {pending ? (
           <>
             <Loader2 className="size-4 animate-spin" aria-hidden />
